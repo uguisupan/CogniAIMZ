@@ -74,6 +74,15 @@ header {
     margin-right: 2px;
 }
 
+.logo-version {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 0px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
 .status-badge {
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-color);
