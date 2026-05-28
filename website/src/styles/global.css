@@ -1,0 +1,874 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    /* カラーパレット (白背景系、Key/Leaf等の00年代美少女ゲームメーカー風) */
+    --bg-main: #f5f4f8;           /* 淡いグレーバイオレット */
+    --bg-panel: #ffffff;          /* 純白の不透明パネル */
+    --bg-panel-hover: #faf9fc;    
+    
+    --color-cyan: #0077b3;        /* 視認性の高い濃いめのシアンブルー */
+    --color-pink: #d60062;        /* 視認性の高い濃いめのマゼンタピンク */
+    --color-yellow: #ffe600;      /* アクセントイエロー */
+    --color-navy: #190f33;        /* 締め色・メイン文字用の濃紺 */
+    
+    --text-main: #190f33;         /* メイン文字（濃紺） */
+    --text-muted: #6e648c;        /* サブ文字 */
+    
+    /* フォントスタック：MS Pゴシック/Osaka等のクラシックフォントを最優先に */
+    --font-classic: "MS PGothic", "ＭＳ Ｐゴシック", "MS PMincho", "Osaka", "Hiragino Kaku Gothic Pro W3", sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    --transition: 0.1s ease-out;  /* 00年代サイトらしいキビキビした遷移 */
+}
+
+/* 共通初期化 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-classic);
+    font-size: 13px; /* 当時のWeb標準的なやや小さめのフォントサイズ */
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 00年代アキバ系サイト特有の「白・薄グレー」の網点＆斜線背景 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        radial-gradient(rgba(0, 119, 179, 0.03) 1px, transparent 1px),
+        linear-gradient(135deg, #e6e4eb 25%, transparent 25%, transparent 50%, #e6e4eb 50%, #e6e4eb 75%, transparent 75%, transparent);
+    background-size: 8px 8px, 12px 12px;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* 画面最上部のサイバー境界線 */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-pink), var(--color-cyan), var(--color-navy));
+    z-index: 100;
+}
+
+/* コンテナ */
+.site-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* ヘッダー (濃紺の境界線でカチッと引き締める) */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border: 1px solid var(--color-navy);
+    background: var(--bg-panel);
+    padding: 15px 20px;
+    position: relative;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+}
+
+.site-header::before {
+    content: "■";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    color: var(--color-navy);
+    font-size: 10px;
+}
+
+.logo-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-main {
+    font-size: 2.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-navy);
+    text-decoration: none;
+    /* ソリッドなピンクのドロップシャドウ */
+    text-shadow: 2px 2px 0px rgba(214, 0, 98, 0.25);
+}
+
+.logo-main span {
+    color: var(--color-pink);
+}
+
+.logo-ruby {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--color-cyan);
+    margin-top: 2px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 8px;
+}
+
+/* ナビゲーションリンク */
+.nav-link {
+    font-family: var(--font-mono);
+    color: var(--color-navy);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 4px 10px;
+    border: 1px solid var(--color-navy);
+    background: #ffffff;
+    transition: var(--transition);
+}
+
+/* ホバー時は背景ベタ塗り・文字色反転 */
+.nav-link:hover {
+    color: #ffffff !important;
+    background: var(--color-cyan);
+    border-color: var(--color-cyan);
+}
+
+.nav-link.active {
+    color: #ffffff !important;
+    background: var(--color-pink);
+    border-color: var(--color-pink);
+}
+
+/* ヒーローセクション（カチッとした濃紺のテーブル枠風） */
+.hero-section {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 30px;
+    align-items: center;
+    background: var(--bg-panel);
+    border: 2px solid var(--color-navy);
+    padding: 30px;
+    position: relative;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.hero-section::before {
+    content: "« TARGET_SYSTEM: COGNITVE_OVERLAY_VER_1.08 »";
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-cyan);
+    font-weight: bold;
+}
+
+.hero-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #ffffff;
+    background: var(--color-navy);
+    padding: 2px 8px;
+    align-self: flex-start;
+    font-weight: bold;
+}
+
+.hero-title-en {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--color-pink);
+    font-family: var(--font-mono);
+}
+
+.hero-title-jp {
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 1.4;
+    color: var(--color-navy);
+    text-shadow: 2px 2px 0px rgba(0, 119, 179, 0.15);
+}
+
+.hero-desc {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    border-left: 2px solid var(--color-pink);
+    padding-left: 10px;
+}
+
+/* 00年代アキバ系解説書風 表紙枠 */
+.hero-book-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-cover {
+    width: 260px;
+    height: 350px;
+    background: #ffffff;
+    border: 2px solid var(--color-pink);
+    position: relative;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    transition: var(--transition);
+}
+
+.book-cover:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px rgba(0, 119, 179, 0.2);
+    border-color: var(--color-cyan);
+}
+
+.book-title-sub {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-cyan);
+    font-weight: bold;
+}
+
+.book-title-main {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--color-navy);
+    line-height: 1.4;
+    margin-top: 5px;
+    border-left: 2px solid var(--color-pink);
+    padding-left: 8px;
+}
+
+.book-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-pink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed var(--color-pink);
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+/* Aboutセクション */
+.about-section {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.maid-avatar-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--color-navy);
+    background: var(--bg-panel);
+    padding: 15px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.maid-stand-placeholder {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.maid-name {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #ffffff;
+    background: var(--color-pink);
+    padding: 2px 10px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
+/* メイド吹き出し（会話ウィンドウ枠） */
+.about-dialog-box {
+    background: var(--bg-panel);
+    border: 1px solid var(--color-navy);
+    padding: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.about-dialog-box::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: -10px;
+    border-width: 6px 10px 6px 0;
+    border-style: solid;
+    border-color: transparent var(--color-navy) transparent transparent;
+    display: block;
+    width: 0;
+}
+
+.dialog-header {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-cyan);
+    border-bottom: 1px solid var(--color-navy);
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.dialog-text {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--text-main);
+}
+
+.dialog-text p {
+    margin-bottom: 10px;
+}
+
+.dialog-text p:last-child {
+    margin-bottom: 0;
+}
+
+.dialog-text strong {
+    color: var(--color-cyan);
+    font-weight: bold;
+}
+
+.dialog-text .pink-highlight {
+    color: var(--color-pink);
+    font-weight: bold;
+}
+
+/* タイトル見出し */
+.section-title-cyber {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-navy);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--color-navy);
+    padding-bottom: 5px;
+    text-shadow: 1px 1px 0px rgba(214, 0, 98, 0.15);
+}
+
+.section-title-cyber::before {
+    content: "■";
+    color: var(--color-pink);
+}
+
+/* プロダクトグリッド */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* カード */
+.product-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--color-navy);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 280px;
+    position: relative;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+}
+
+.product-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--color-navy);
+}
+
+.product-card.active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-card.active:hover {
+    transform: translate(-2px, -2px);
+    border-color: var(--color-pink);
+    box-shadow: 6px 6px 0px rgba(214, 0, 98, 0.15);
+}
+
+.product-card.active:hover::before {
+    background: var(--color-pink);
+}
+
+.product-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-pink);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.product-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--color-navy);
+    margin-bottom: 10px;
+    border-bottom: 1px dashed rgba(0,0,0,0.1);
+    padding-bottom: 5px;
+}
+
+.product-desc {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    padding-top: 10px;
+}
+
+.product-status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--color-cyan);
+}
+
+.product-card.active:hover .product-status {
+    color: var(--color-pink);
+}
+
+.product-action-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--color-navy);
+    background: transparent;
+    border: 1px solid var(--color-navy);
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+.product-card.active:hover .product-action-btn {
+    background: var(--color-pink);
+    border-color: var(--color-pink);
+    color: #ffffff;
+}
+
+/* ロックカード */
+.product-card.locked {
+    opacity: 0.5;
+    border-color: var(--text-muted);
+}
+
+.product-card.locked::before {
+    background: var(--text-muted);
+}
+
+.product-card.locked .product-status {
+    color: var(--text-muted);
+}
+
+/* 情報カラム */
+.info-columns {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 30px;
+}
+
+/* デブログ */
+.blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.blog-item {
+    background: var(--bg-panel);
+    border: 1px solid var(--color-navy);
+    padding: 15px;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-decoration: none;
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+}
+
+.blog-item:hover {
+    border-color: var(--color-pink);
+    background: var(--bg-panel-hover);
+    box-shadow: 4px 4px 0px rgba(214,0,98,0.1);
+}
+
+.blog-meta {
+    display: flex;
+    gap: 15px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.blog-date {
+    color: var(--color-cyan);
+}
+
+.blog-tag {
+    color: var(--color-pink);
+}
+
+.blog-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--color-navy);
+    line-height: 1.4;
+}
+
+.blog-item:hover .blog-title {
+    color: var(--color-pink);
+    text-decoration: underline;
+}
+
+/* 出展情報 */
+.event-box {
+    background: var(--bg-panel);
+    border: 1px solid var(--color-pink);
+    padding: 25px;
+    position: relative;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+    height: fit-content;
+}
+
+.event-box::before {
+    content: "■ NEXT EVENT SCHEDULE ■";
+    position: absolute;
+    top: -9px;
+    left: 15px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    background: var(--bg-main);
+    color: var(--color-pink);
+    border: 1px solid var(--color-pink);
+    padding: 1px 8px;
+    font-weight: bold;
+}
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--color-pink);
+    padding-bottom: 8px;
+}
+
+.event-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--color-navy);
+}
+
+.event-date {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-pink);
+    font-weight: bold;
+}
+
+.event-info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.event-label {
+    color: var(--text-muted);
+}
+
+.event-value {
+    color: var(--color-navy);
+    font-weight: bold;
+}
+
+.event-value.highlight {
+    color: var(--color-pink);
+    background: rgba(214, 0, 98, 0.05);
+    padding: 1px 5px;
+    border: 1px solid var(--color-pink);
+}
+
+/* キリ番アクセスカウンター風パネル */
+.counter-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--color-navy);
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.counter-title {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--color-navy);
+}
+
+/* カウンター数字 (レトロなデジタルカウンター風に黒背景に緑の文字) */
+.counter-numbers {
+    display: flex;
+    gap: 2px;
+}
+
+.counter-num {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #39ff14;                /* ネオングリーン（7セグ・LED風） */
+    background: #000000;          /* 黒背景 */
+    padding: 2px 6px;
+    border: 1px solid #333333;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.8);
+    text-shadow: 0 0 4px rgba(57, 255, 20, 0.8);
+}
+
+.counter-num.neon-num {
+    color: #ff007f;               /* ネオンピンク */
+    text-shadow: 0 0 4px rgba(255, 0, 127, 0.8);
+}
+
+.counter-note {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+/* システムステータスバー (濃紺で引き締めた一行バー) */
+.system-status-bar {
+    background: var(--color-navy);
+    border: 1px solid var(--color-navy);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #ffffff;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-cyan);
+    font-weight: bold;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-cyan);
+    border-radius: 0%;
+    box-shadow: 0 0 4px var(--color-cyan);
+    animation: blink 1s steps(2, start) infinite;
+}
+
+.system-time {
+    color: #b0a8cc;
+}
+
+.site-footer {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+.site-footer a {
+    color: var(--color-cyan);
+    text-decoration: underline;
+}
+
+.site-footer a:hover {
+    color: var(--color-pink);
+    background: transparent;
+}
+
+/* 点滅アニメーション */
+@keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+/* レスポンシブ */
+@media (max-width: 800px) {
+    .site-container {
+        gap: 30px;
+    }
+    .hero-section {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+    .hero-book-preview {
+        order: -1;
+    }
+    .about-section {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .maid-stand-placeholder {
+        max-height: 150px;
+        overflow: hidden;
+    }
+    .about-dialog-box::before {
+        display: none;
+    }
+    .info-columns {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .nav-links {
+        display: none;
+    }
+}
+
+
+/* Markdownコンテンツ用スタイル */
+.markdown-content {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--text-main);
+}
+
+.markdown-content h2 {
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: var(--color-navy);
+    border-bottom: 2px solid var(--color-navy);
+    padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.markdown-content h2::before {
+    content: "■ ";
+    color: var(--color-pink);
+}
+
+.markdown-content h3 {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--color-pink);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-left: 2px solid var(--color-cyan);
+    padding-left: 8px;
+}
+
+.markdown-content p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.markdown-content ul, .markdown-content ol {
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+.markdown-content li {
+    margin-bottom: 5px;
+}
+
+.markdown-content strong {
+    color: var(--color-pink);
+    font-weight: bold;
+}
+
+/* コードブロック (00年代PCモニター風グリーン表示) */
+.markdown-content pre {
+    background: #0b0716;
+    color: #39ff14;
+    border: 1px solid var(--color-cyan);
+    padding: 15px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.8);
+}
+
+.markdown-content code {
+    font-family: var(--font-mono);
+    background: rgba(0, 119, 179, 0.05);
+    color: var(--color-cyan);
+    padding: 2px 5px;
+    border: 1px solid rgba(0, 119, 179, 0.15);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.markdown-content pre code {
+    background: transparent;
+    color: inherit;
+    border: none;
+    padding: 0;
+}
+
+.markdown-content blockquote {
+    border: 1px solid var(--color-navy);
+    border-left: 4px solid var(--color-pink);
+    background: var(--bg-panel-hover);
+    padding: 12px 15px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}

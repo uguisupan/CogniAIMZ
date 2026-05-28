@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+
+interface Props {
+    title: string;
+    description?: string;
+    activeNav?: string;
+}
+
+const { title, description = "コグニエイムズ(CogniAIMZ)は、人間の足裏の圧力知覚とブレーキングの再現性向上を目指す同人サークルです。", activeNav = "" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title} - CogniAIMZ</title>
+    <meta name="description" content={description}>
+</head>
+<body>
+    <div class="site-container">
+        <!-- ヘッダー -->
+        <header class="site-header" id="header">
+            <div class="logo-area">
+                <a href="/" class="logo-main"><span>Cogni</span>AIMZ</a>
+                <div class="logo-ruby">こぐにえいむず // kɔg-ni-eɪmz</div>
+            </div>
+            <nav class="nav-links">
+                <a href="/#about" class={`nav-link ${activeNav === 'about' ? 'active' : ''}`}>About</a>
+                <a href="/#products" class={`nav-link ${activeNav === 'products' ? 'active' : ''}`}>Products</a>
+                <a href="/#devlog" class={`nav-link ${activeNav === 'devlog' ? 'active' : ''}`}>Devlog</a>
+                <a href="/#event" class={`nav-link ${activeNav === 'event' ? 'active' : ''}`}>Event</a>
+            </nav>
+        </header>
+
+        <!-- メインコンテンツの挿入 -->
+        <slot />
+
+        <!-- システムステータスバー -->
+        <div class="system-status-bar font-mono">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>SYSTEM STATUS: ACTIVE [ v1.0.0-beta ]</span>
+            </div>
+            <div class="system-time">
+                SYS_LOC: CL-90 // CORE_TEMP: NORMAL
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <footer class="site-footer font-mono">
+            <p>&copy; 2026 CogniAIMZ Project. Developed for Advanced Sim-Racers.</p>
+            <p style="margin-top: 8px; font-size: 0.7rem; color: var(--text-muted);">
+                Built with retro-cyber aesthetic. Repo hosted on <a href="https://github.com/uguisupan/CogniAIMZ" target="_blank" rel="noopener noreferrer">GitHub</a>.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

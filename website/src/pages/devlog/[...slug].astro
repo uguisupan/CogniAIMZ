@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+    return posts.map(post => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// 日付フォーマット
+const formatDate = (date: Date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}.${m}.${d}`;
+};
+---
+
+<Layout title={post.data.title} activeNav="devlog">
+    <article class="product-card" style="min-height: auto; width: 100%; padding: 40px; cursor: default; margin-bottom: 20px;">
+        <header style="margin-bottom: 30px; border-bottom: 2px solid var(--color-navy); padding-bottom: 15px;">
+            <div class="blog-meta" style="margin-bottom: 10px; font-size: 0.85rem;">
+                <span class="blog-date font-mono" style="color: var(--color-cyan); font-weight: bold;">{formatDate(post.data.pubDate)}</span>
+                <span class="blog-tag font-mono" style="color: var(--color-pink); margin-left: 20px; font-weight: bold;">#{post.data.tag}</span>
+            </div>
+            <h1 style="font-size: 1.6rem; font-weight: bold; color: var(--color-navy); line-height: 1.4; text-shadow: 1px 1px 0px rgba(0,0,0,0.05);">
+                {post.data.title}
+            </h1>
+        </header>
+
+        <div class="markdown-content">
+            <Content />
+        </div>
+
+        <footer style="margin-top: 40px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 20px; display: flex; justify-content: flex-end;">
+            <a href="/#devlog" class="product-action-btn font-mono" style="text-decoration: none; padding: 5px 15px;">
+                ≪ BACK TO INDEX
+            </a>
+        </footer>
+    </article>
+</Layout>
