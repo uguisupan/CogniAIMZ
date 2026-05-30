@@ -14,7 +14,7 @@
     <div class="app-container">
         <header>
             <div class="logo">
-                <span class="logo-accent">BRAKE</span>TRAINER <span class="logo-version">（K2MF-001 v0.2.0）</span>
+                <span class="logo-accent">BRAKE</span>TRAINER <span class="logo-version">（K2MF-001 v0.2.5）</span>
             </div>
             <div class="header-right">
                 <div class="status-badge" id="connection-status">デバイス未接続</div>
@@ -38,6 +38,13 @@
                             <option value="trail">トレイルブレーキング（リリース＆完全戻し）</option>
                             <option value="combined">コンバイン（複合フルコース）</option>
                             <option value="benchmark">ベンチマーク（能力測定・ログ機能）</option>
+                        </select>
+                    </div>
+                    <div class="control-group margin-top">
+                        <label for="display-mode-select">表示モード</label>
+                        <select id="display-mode-select">
+                            <option value="symmetric">左右対称モード（ハサミ型）</option>
+                            <option value="telemetry">テレメトリーモード（うねる1本道）</option>
                         </select>
                     </div>
                     <div class="score-board">
