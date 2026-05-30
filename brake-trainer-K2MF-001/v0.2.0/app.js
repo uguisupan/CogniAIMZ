@@ -411,7 +411,7 @@ function checkJudgement(currentTime, finalBrakeValue, isBrakeTriggered) {
                         playSound('miss');
                     }
                 }
-            } 
+            }
         } 
         else if (note.type === 'hold' || note.type === 'trail' || note.type === 's-curve') {
             const noteDuration = note.duration;
@@ -448,7 +448,6 @@ function checkJudgement(currentTime, finalBrakeValue, isBrakeTriggered) {
                     }
                 }
             }
-        }
             else if (playTime > note.time + noteDuration && !note.scoreProcessed) {
                 note.scoreProcessed = true;
                 const ratio = note.holdTicks > 0 ? note.holdPerfectTicks / note.holdTicks : 0;
@@ -810,6 +809,7 @@ function drawGame(playTime, finalBrakeValue) {
                 ctx.font = 'bold 12px "JetBrains Mono", monospace';
                 ctx.textAlign = 'left';
                 ctx.fillText(`${Math.round(note.targetPressure * 100)}%`, startXRight + 8, noteY - 4);
+                
                 ctx.fillStyle = '#00d2ff'; 
                 ctx.fillText(`➔ ${Math.round(note.trailEndPressure * 100)}%`, endXRight + 8, topY + 12);
             }
