@@ -52,8 +52,11 @@ const state = {
     benchmarkIntervalTicks: 0,
     benchmarkIntervalDragSum: 0,
 
-    // 表示モード
-    displayMode: 'symmetric' // 'symmetric', 'telemetry'
+    // 表示・練習モード設定
+    displayMode: 'symmetric', // 'symmetric', 'telemetry'
+    bpm: 120,
+    lengthMode: 'normal', // 'short', 'normal', 'long', 'infinity'
+    randomPattern: false
 };
 
 // DOM要素の取得
@@ -77,6 +80,9 @@ const startBtn = document.getElementById('start-btn');
 const stopBtn = document.getElementById('stop-btn');
 const patternSelect = document.getElementById('pattern-select');
 const displayModeSelect = document.getElementById('display-mode-select');
+const bpmSelect = document.getElementById('bpm-select');
+const lengthSelect = document.getElementById('length-select');
+const randomPatternToggle = document.getElementById('random-pattern-toggle');
 const scoreVal = document.getElementById('score-val');
 const comboVal = document.getElementById('combo-val');
 const judgementDisplay = document.getElementById('judgement-display');
@@ -106,10 +112,10 @@ let historyChartInstance = null;
 // Canvas設定
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
-const LANE_WIDTH = 300;
-const LANE_X = (canvas.width - LANE_WIDTH) / 2; // レーンの開始X (50)
-const JUDGE_LINE_Y = canvas.height - 100; // 判定ラインのY座標 (500)
-const NOTE_SPEED = 0.25; // 1msあたりに落下するピクセル数
+const LANE_WIDTH = 450;
+const LANE_X = (canvas.width - LANE_WIDTH) / 2; // レーンの開始X (75)
+const JUDGE_LINE_Y = canvas.height - 120; // 判定ラインのY座標 (730)
+const NOTE_SPEED = 0.35; // 1msあたりに落下するピクセル数 (0.35に拡大)
 
 // カラー定数
 const COLOR_PRIMARY = '#00d2ff'; // ネオンブルー
@@ -189,19 +195,19 @@ const PATTERNS = {
     trail: [
         { time: 2000, duration: 2500, targetPressure: 1.0, type: 'trail', trailEndPressure: 0.0 }, // 100% -> 0%
         { time: 4700, duration: 1200, targetPressure: 0.0, type: 'hold' }, // 0%完全リリース維持
-        { time: 6500, duration: 2000, targetPressure: 0.8, type: 'trail', trailEndPressure: 0.2 }, // 80% -> 20%
+        { time: 6500, duration: 2000, targetPressure: 0.8, type: 's-curve', trailEndPressure: 0.2 }, // 80% -> 20% (S字)
         { time: 8700, duration: 1200, targetPressure: 0.0, type: 'hold' }, // 0%完全リリース維持
         { time: 10500, duration: 1500, targetPressure: 0.6, type: 'trail', trailEndPressure: 0.0 }, // 60% -> 0%
         { time: 12200, duration: 1200, targetPressure: 0.0, type: 'hold' }, // 0%完全リリース維持
         { time: 14000, duration: 3000, targetPressure: 1.0, type: 'trail', trailEndPressure: 0.0 }, // 100% -> 0% (3秒)
         { time: 17200, duration: 1500, targetPressure: 0.0, type: 'hold' }, // 0%完全リリース維持
-        { time: 19500, duration: 2000, targetPressure: 0.8, type: 'trail', trailEndPressure: 0.0 }
+        { time: 19500, duration: 2000, targetPressure: 0.8, type: 's-curve', trailEndPressure: 0.0 }  // 80% -> 0% (S字)
     ],
     combined: [
         { time: 2000, duration: 0, targetPressure: 0.5, type: 'single' },
         { time: 3500, duration: 0, targetPressure: 0.8, type: 'single' },
         { time: 4800, duration: 1000, targetPressure: 0.0, type: 'hold' }, // 0%戻し
-        { time: 6500, duration: 2500, targetPressure: 0.9, type: 'trail', trailEndPressure: 0.1 },
+        { time: 6500, duration: 2500, targetPressure: 0.9, type: 's-curve', trailEndPressure: 0.1 }, // 90% -> 10% (S字)
         { time: 9200, duration: 1200, targetPressure: 0.0, type: 'hold' }, // 0%戻し
         { time: 11000, duration: 1500, targetPressure: 0.6, type: 'hold' },
         { time: 13000, duration: 1200, targetPressure: 0.0, type: 'hold' }, // 0%戻し
@@ -253,6 +259,21 @@ displayModeSelect.addEventListener('change', (e) => {
     saveSettings();
 });
 
+bpmSelect.addEventListener('change', (e) => {
+    state.bpm = parseInt(e.target.value);
+    saveSettings();
+});
+
+lengthSelect.addEventListener('change', (e) => {
+    state.lengthMode = e.target.value;
+    saveSettings();
+});
+
+randomPatternToggle.addEventListener('change', (e) => {
+    state.randomPattern = e.target.checked;
+    saveSettings();
+});
+
 // ゲーム開始
 function startGame() {
     state.gameState = 'playing';
@@ -271,8 +292,62 @@ function startGame() {
     state.benchmarkIntervalTicks = 0;
     state.benchmarkIntervalDragSum = 0;
     
-    const rawPattern = PATTERNS[state.currentPattern];
-    state.activeNotes = rawPattern.map(note => ({
+    // 1. パターンの取得（ランダムまたは固定）
+    let rawPattern = [];
+    if (state.randomPattern) {
+        rawPattern = generateRandomNotes(state.currentPattern);
+    } else {
+        rawPattern = PATTERNS[state.currentPattern];
+    }
+    
+    // 2. BPMによる時間伸縮（タイムスケール化）
+    const timeScale = 120 / state.bpm;
+    let scaledPattern = rawPattern.map(note => {
+        const scaledNote = {
+            ...note,
+            time: Math.round(note.time * timeScale),
+            duration: Math.round((note.duration || 0) * timeScale)
+        };
+        return scaledNote;
+    });
+    
+    // 3. 練習の長さ (Length Mode) による調整
+    let finalPattern = [];
+    if (state.lengthMode === 'short') {
+        // 全体の総時間の半分を算出
+        if (scaledPattern.length > 0) {
+            const lastNote = scaledPattern[scaledPattern.length - 1];
+            const totalDuration = lastNote.time + (lastNote.duration || 0);
+            const halfDuration = totalDuration * 0.5;
+            // 前半50%の開始時間を持つノーツのみ採用
+            finalPattern = scaledPattern.filter(note => note.time < halfDuration);
+        } else {
+            finalPattern = scaledPattern;
+        }
+    } else if (state.lengthMode === 'long') {
+        // 同じパターンを2回繰り返す (2周目の開始は2秒のインターバルを空ける)
+        if (scaledPattern.length > 0) {
+            finalPattern = [...scaledPattern];
+            const lastNote = scaledPattern[scaledPattern.length - 1];
+            const firstNote = scaledPattern[0];
+            const loopOffset = lastNote.time + (lastNote.duration || 0) + 2000 - firstNote.time;
+            
+            scaledPattern.forEach(note => {
+                finalPattern.push({
+                    ...note,
+                    time: note.time + loopOffset
+                });
+            });
+        } else {
+            finalPattern = scaledPattern;
+        }
+    } else {
+        // normal または infinity
+        finalPattern = scaledPattern;
+    }
+    
+    // 4. アジリティパラメータ初期化
+    state.activeNotes = finalPattern.map(note => ({
         ...note,
         hitState: null,
         tempHitState: null,
@@ -343,8 +418,43 @@ function checkJudgement(currentTime, finalBrakeValue, isBrakeTriggered) {
     });
     
     if (allFinished && state.activeNotes.length > 0) {
-        stopGame(true);
-        return;
+        if (state.lengthMode === 'infinity') {
+            // インフィニティモード：時間をリセットしてループ再生
+            const offset = playTime + 1500;
+            
+            let basePattern = [];
+            if (state.randomPattern) {
+                basePattern = generateRandomNotes(state.currentPattern);
+            } else {
+                basePattern = PATTERNS[state.currentPattern];
+            }
+            
+            const timeScale = 120 / state.bpm;
+            const minTime = Math.min(...basePattern.map(n => n.time));
+            
+            state.activeNotes = basePattern.map(note => {
+                const scaledTime = Math.round((note.time - minTime) * timeScale);
+                const scaledDuration = Math.round((note.duration || 0) * timeScale);
+                return {
+                    ...note,
+                    time: offset + scaledTime,
+                    duration: scaledDuration,
+                    hitState: null,
+                    tempHitState: null,
+                    tempBestMatch: 0,
+                    scoreProcessed: false,
+                    holdTicks: 0,
+                    holdPerfectTicks: 0,
+                    ticksWithin3: 0,
+                    ticksWithin6: 0,
+                    totalTicks: 0
+                };
+            });
+            state.lastBeatIndex = Math.floor(playTime / (60000 / state.bpm));
+        } else {
+            stopGame(true);
+            return;
+        }
     }
 
     state.activeNotes.forEach(note => {
@@ -550,6 +660,101 @@ function checkJudgement(currentTime, finalBrakeValue, isBrakeTriggered) {
     
     scoreVal.textContent = state.score.toLocaleString('en-US', { minimumIntegerDigits: 6, useGrouping: false });
     comboVal.textContent = state.combo.toString();
+}
+
+// パターンタイプに応じたランダムノーツ生成
+function generateRandomNotes(patternType) {
+    const notes = [];
+    let currentTime = 2000; // 2秒後から開始
+    const numNotes = 12;    // 標準ノーツ数
+    
+    const pressureChoices = [0.2, 0.4, 0.6, 0.8, 1.0];
+    const endPressureChoices = [0.0, 0.1, 0.2, 0.3];
+    
+    for (let i = 0; i < numNotes; i++) {
+        let noteType = 'single';
+        if (patternType === 'basic') {
+            noteType = Math.random() < 0.4 ? 'single' : 'hold';
+        } else if (patternType === 'trail') {
+            noteType = Math.random() < 0.5 ? 'trail' : 's-curve';
+        } else { // combined, benchmark
+            const r = Math.random();
+            if (r < 0.2) noteType = 'single';
+            else if (r < 0.4) noteType = 'hold';
+            else if (r < 0.7) noteType = 'trail';
+            else noteType = 's-curve';
+        }
+        
+        const targetPressure = pressureChoices[Math.floor(Math.random() * pressureChoices.length)];
+        
+        if (noteType === 'single') {
+            notes.push({
+                time: currentTime,
+                duration: 0,
+                targetPressure: targetPressure,
+                type: 'single'
+            });
+            currentTime += 2000 + Math.floor(Math.random() * 3) * 500; // 2s ~ 3s 空ける
+        } else if (noteType === 'hold') {
+            const duration = 1500 + Math.floor(Math.random() * 3) * 500; // 1.5s, 2s, 2.5s
+            notes.push({
+                time: currentTime,
+                duration: duration,
+                targetPressure: targetPressure,
+                type: 'hold'
+            });
+            // ホールドの後は必ずリリースを挟む
+            currentTime += duration + 1000;
+            notes.push({
+                time: currentTime,
+                duration: 1000,
+                targetPressure: 0.0,
+                type: 'hold'
+            });
+            currentTime += 1000 + 1500 + Math.floor(Math.random() * 2) * 500;
+        } else if (noteType === 'trail' || noteType === 's-curve') {
+            const duration = 1500 + Math.floor(Math.random() * 4) * 500; // 1.5s ~ 3s
+            const endPressure = endPressureChoices[Math.floor(Math.random() * endPressureChoices.length)];
+            
+            let startP = targetPressure;
+            let endP = endPressure;
+            // 減圧であることを担保する
+            if (startP < endP) {
+                const temp = startP;
+                startP = endP;
+                endP = temp;
+            }
+            if (startP === endP) {
+                startP = 0.8;
+                endP = 0.2;
+            }
+            
+            notes.push({
+                time: currentTime,
+                duration: duration,
+                targetPressure: startP,
+                trailEndPressure: endP,
+                type: noteType
+            });
+            
+            // エンド圧力が 0.0 でない場合、そのあとさらにリリースを挟むか、時間経過
+            currentTime += duration;
+            if (endP > 0.0) {
+                // そのまま次のノーツへ
+                currentTime += 1500 + Math.floor(Math.random() * 2) * 500;
+            } else {
+                // 0%維持ゲートを少し挟む
+                notes.push({
+                    time: currentTime,
+                    duration: 1200,
+                    targetPressure: 0.0,
+                    type: 'hold'
+                });
+                currentTime += 1200 + 1500 + Math.floor(Math.random() * 2) * 500;
+            }
+        }
+    }
+    return notes;
 }
 
 // 任意の時刻における目標圧力とアクティブ状態を取得するヘルパー関数
@@ -1099,11 +1304,17 @@ function loadSettings() {
             state.calMin = settings.calMin !== undefined ? settings.calMin : 0.0;
             state.calMax = settings.calMax !== undefined ? settings.calMax : 1.0;
             state.displayMode = settings.displayMode || 'symmetric';
+            state.bpm = settings.bpm !== undefined ? parseInt(settings.bpm) : 120;
+            state.lengthMode = settings.lengthMode || 'normal';
+            state.randomPattern = settings.randomPattern || false;
             
             invertAxisCheckbox.checked = state.invertAxis;
             calMinValSpan.textContent = state.calMin.toFixed(4);
             calMaxValSpan.textContent = state.calMax.toFixed(4);
             displayModeSelect.value = state.displayMode;
+            bpmSelect.value = state.bpm;
+            lengthSelect.value = state.lengthMode;
+            randomPatternToggle.checked = state.randomPattern;
             
             state.savedDeviceName = settings.deviceName || null;
             state.savedGamepadIndex = settings.gamepadIndex !== undefined && settings.gamepadIndex !== null ? parseInt(settings.gamepadIndex) : null;
@@ -1113,7 +1324,10 @@ function loadSettings() {
                 deviceName: state.savedDeviceName,
                 gamepadIndex: state.savedGamepadIndex,
                 axisIndex: state.savedAxisIndex,
-                displayMode: state.displayMode
+                displayMode: state.displayMode,
+                bpm: state.bpm,
+                lengthMode: state.lengthMode,
+                randomPattern: state.randomPattern
             });
         } catch (e) {
             console.error("設定のロードに失敗しました:", e);
@@ -1138,7 +1352,10 @@ function saveSettings() {
         invertAxis: state.invertAxis,
         calMin: state.calMin,
         calMax: state.calMax,
-        displayMode: state.displayMode
+        displayMode: state.displayMode,
+        bpm: state.bpm,
+        lengthMode: state.lengthMode,
+        randomPattern: state.randomPattern
     };
     console.log("saveSettings: Saving settings to localStorage:", settings);
     localStorage.setItem('brake_trainer_settings', JSON.stringify(settings));

@@ -47,6 +47,29 @@
                             <option value="telemetry">テレメトリーモード（うねる1本道）</option>
                         </select>
                     </div>
+                    <div class="control-group margin-top">
+                        <label for="bpm-select">テンポ (BPM)</label>
+                        <select id="bpm-select">
+                            <option value="60">60 BPM</option>
+                            <option value="80">80 BPM</option>
+                            <option value="120" selected>120 BPM</option>
+                            <option value="180">180 BPM</option>
+                            <option value="240">240 BPM</option>
+                        </select>
+                    </div>
+                    <div class="control-group margin-top">
+                        <label for="length-select">練習の長さ</label>
+                        <select id="length-select">
+                            <option value="short">ショート (50%長さ)</option>
+                            <option value="normal" selected>ノーマル (100%長さ)</option>
+                            <option value="long">ロング (200%長さ)</option>
+                            <option value="infinity">インフィニティ (無限)</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group margin-top">
+                        <input type="checkbox" id="random-pattern-toggle">
+                        <label for="random-pattern-toggle">パターンをランダム生成する</label>
+                    </div>
                     <div class="score-board">
                         <div class="score-item">
                             <div class="score-label">SCORE</div>
@@ -163,7 +186,7 @@
                 <div id="play-tab" class="tab-content active">
                     <section class="card canvas-card">
                         <div class="canvas-container">
-                            <canvas id="game-canvas" width="400" height="600"></canvas>
+                            <canvas id="game-canvas" width="600" height="850"></canvas>
                         </div>
                     </section>
                 </div>
