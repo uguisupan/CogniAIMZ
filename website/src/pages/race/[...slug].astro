@@ -48,10 +48,19 @@ const formatDate = (date: Date) => {
             <Content />
         </div>
 
-        <footer style="margin-top: 40px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 20px; display: flex; justify-content: flex-end;">
-            <a href={`${import.meta.env.BASE_URL}/#race`} class="product-action-btn font-mono" style="text-decoration: none; padding: 5px 15px;">
-                ≪ BACK TO INDEX
-            </a>
+        <footer style="margin-top: 40px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 20px;">
+            <div class="back-navigation" style="display: flex; flex-direction: column; gap: 8px;">
+                <div>
+                    <a href="https://cogniaimz.chikyu.in/" class="product-action-btn font-mono" style="text-decoration: none; padding: 6px 18px; font-size: 0.85rem; display: inline-block; border-color: var(--color-pink);">
+                        ≪ BACK TO OFFICIAL SITE (本家トップ)
+                    </a>
+                </div>
+                <div>
+                    <a href={`${import.meta.env.BASE_URL}/`} style="color: var(--color-cyan); text-decoration: underline; font-size: 0.8rem; font-weight: bold; margin-left: 5px;">
+                        ➔ 開発ブログ・資料室インデックスへ戻る
+                    </a>
+                </div>
+            </div>
         </footer>
     </article>
 </Layout>
