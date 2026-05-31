@@ -1,7 +1,7 @@
 ---
 title: "【テンプレート】開発ログのタイトル"
 pubDate: "2026-06-01"
-tag: "Release" # タグ名（Release, Research, Update, BugFix など自由）
+tag: "Release" # タグ名（Release, Research, Update, BugFixの４個を基本に）
 description: "記事の短い説明文をここに書きます（省略可能）"
 ---
 
