@@ -871,3 +871,15 @@ body::after {
     color: var(--text-muted);
     margin-bottom: 15px;
 }
+
+/* ログの3カラム表示用 */
+.logs-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+.log-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

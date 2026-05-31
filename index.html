@@ -4,54 +4,156 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>サークル公式サイト - CogniAIMZ</title>
-    <meta name="description" content="コグニエイムズ(CogniAIMZ)は、人間の足裏の圧力知覚とブレーキングの再現性向上を目指す同人サークルです。">
+    <meta name="description" content="コグニエイムズ(CogniAIMZ)は、人間の足裏 of 圧力知覚とブレーキングの再現性向上を目指す同人サークルです。">
     <!-- ローカルに移植したスタイルシートを読み込む -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="site-container">
-        <!-- ヘッダー -->
+        <!-- ヘッダー (ナビゲーションリンクを新しい構成に合わせて調整) -->
         <header class="site-header" id="header">
             <div class="logo-area">
                 <a href="./index.html" class="logo-main"><span>Cogni</span>AIMZ</a>
                 <div class="logo-ruby">こぐにえいむず // kɔg-ni-eɪmz</div>
             </div>
             <nav class="nav-links">
-                <a href="#about" class="nav-link">About</a>
                 <a href="#products" class="nav-link">Products</a>
-                <a href="https://uguisupan.github.io/CogniAIMZ/#devlog" class="nav-link">Devlog</a>
-                <a href="https://uguisupan.github.io/CogniAIMZ/#event" class="nav-link">Event</a>
+                <a href="#logs" class="nav-link">Logs</a>
+                <a href="#mission" class="nav-link">Mission</a>
+                <a href="#about" class="nav-link">About</a>
             </nav>
         </header>
 
         <!-- メインコンテンツ -->
-        <!-- ヒーローセクション -->
-        <section class="hero-section" id="hero">
-            <div class="hero-info">
-                <div class="hero-tag font-mono">DOUJINSHI PROJ: #001</div>
-                <h2 class="hero-title-en font-mono">Real-time Measurement & Training Tools</h2>
-                <h1 class="hero-title-jp">
-                    アマチュアレーサーにおける<br>
-                    運転操作向上のための<br>
-                    トレーニングツール①　初等・ブレーキ編
-                </h1>
-                <p class="hero-desc">
-                    ロードセル式ペダルによる踏力コントロールをミリ秒単位でデータ化。
-                    脳と足裏の「知覚ギャップ」を埋め、常に狙った通りのトレイルブレーキングを再現するための理論とツールの解説書。
-                </p>
-                <div style="margin-top: 10px;">
-                    <a href="#products" class="product-action-btn font-mono" style="text-decoration: none; display: inline-block;">SYSTEM OVERVIEW ➔</a>
-                </div>
+
+        <!-- ① Main Products (最上部に移動) -->
+        <section class="products-section" id="products">
+            <h2 class="section-title-cyber">Main Products</h2>
+            <div class="products-grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto 15px auto; width: 100%;">
+                <!-- K2MF-001: Brake Trainer -->
+                <a href="https://uguisupan.github.io/CogniAIMZ/brake-trainer-K2MF-001/index.html" target="_blank" rel="noopener noreferrer" class="product-card active" id="product-k2mf-001" style="min-height: auto;">
+                    <div class="product-content">
+                        <div class="product-meta">SYSTEM MODEL: K2MF-001 | v0.2.5 (LATEST)</div>
+                        <h3 class="product-title">Brake Trainer</h3>
+                        <p class="product-desc font-sans">
+                            ロードセルペダルのリリース挙動にフォーカスし、ターゲットの踏力（%）へミリ秒単位でリリースコントロール（戻し）を行うリズムゲーム型トレーニングツール。GitHub Pagesで稼働中。
+                        </p>
+                        <p class="product-desc font-sans" style="font-size: 0.8rem; color: var(--color-pink); font-weight: bold;">
+                            ※プレイにはGamepad APIに対応したUSBロードセルペダル、または互換コントローラーが必要です。
+                        </p>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-status font-mono">STATUS: ONLINE ➔</span>
+                        <span class="product-action-btn font-mono">LAUNCH LATEST APP</span>
+                    </div>
+                </a>
             </div>
-            <div class="hero-book-preview">
-                <!-- 00年代萌え系解説書風 表紙 -->
-                <div class="book-cover" style="padding: 0; overflow: hidden; display: block;">
-                    <img src="./book_cover.jpg" alt="技術書表紙" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+                <a href="https://uguisupan.github.io/CogniAIMZ/tools/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                    VIEW ALL PRODUCTS & ARCHIVES ➔
+                </a>
+            </div>
+        </section>
+
+        <!-- ② Logs (3カラム並列：Devlog, Race, Books) -->
+        <section id="logs" style="margin-top: 20px;">
+            <div class="logs-columns">
+                <!-- 開発ログ (Devlog) -->
+                <div class="log-column">
+                    <h2 class="section-title-cyber">Research & Devlog</h2>
+                    <div class="blog-list" id="devlog-list" style="margin-bottom: 15px;">
+                        <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; margin-top: auto;">
+                        <a href="https://uguisupan.github.io/CogniAIMZ/devlog/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                            VIEW ALL DEVLOGS ➔
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 参戦記 (Race) -->
+                <div class="log-column">
+                    <h2 class="section-title-cyber">Motorsports Race Logs</h2>
+                    <div class="blog-list" id="race-list" style="margin-bottom: 15px;">
+                        <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; margin-top: auto;">
+                        <a href="https://uguisupan.github.io/CogniAIMZ/race/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                            VIEW ALL RACE LOGS ➔
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 出版・新刊ログ (Books) -->
+                <div class="log-column">
+                    <h2 class="section-title-cyber">Published Books</h2>
+                    <div class="blog-list" id="books-list" style="margin-bottom: 15px;">
+                        <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; margin-top: auto;">
+                        <a href="https://uguisupan.github.io/CogniAIMZ/books/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                            VIEW ALL BOOKS ➔
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- メイドさん解説セクション (About) -->
+        <!-- キリ番アクセスカウンター (Logs と Mission の間に配置) -->
+        <div class="counter-panel">
+            <span class="counter-title">ACCESS COUNTER</span>
+            <div class="counter-numbers">
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num font-mono neon-num">9</span>
+                <span class="counter-num font-mono neon-num">9</span>
+            </div>
+            <span class="counter-note">※カウンター限界突破につき機能停止中（ウソ）</span>
+        </div>
+
+        <!-- ③ Next Mission (書籍準備中 ＆ イベント出展の統合) -->
+        <section class="hero-section" id="mission">
+            <!-- 左側: 書籍表紙 -->
+            <div class="hero-book-preview">
+                <div class="book-cover" style="padding: 0; overflow: hidden; display: block; width: 220px; height: 300px;">
+                    <img src="./book_cover.jpg" alt="技術書表紙" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+            </div>
+            
+            <!-- 右側: 出展情報 + 準備中メッセージ -->
+            <div class="event-box" style="box-shadow: none; border-color: var(--color-navy); padding: 25px; width: 100%;">
+                <div class="event-details">
+                    <div class="event-header">
+                        <h3 class="event-name">NEXT MISSION: 技術書典 XX</h3>
+                        <span class="event-date font-mono">2026.XX.XX</span>
+                    </div>
+                    
+                    <div style="margin: 10px 0 15px 0; border-left: 2px solid var(--color-pink); padding-left: 12px; font-size: 0.85rem; line-height: 1.6;">
+                        <strong>【DOUJINSHI PROJ: #001】</strong><br>
+                        新刊解説書『アマチュアレーサーにおける運転操作向上のためのトレーニングツール① 初等・ブレーキ編』を、技術書典での頒布に向けて現在一生懸命準備中（鋭意制作中）です！続報をお楽しみに。
+                    </div>
+
+                    <div class="event-info-row">
+                        <span class="event-label font-sans">サークル名:</span>
+                        <span class="event-value">CogniAIMZ (コグニエイムズ)</span>
+                    </div>
+                    <div class="event-info-row">
+                        <span class="event-label font-sans">配置スペース:</span>
+                        <span class="event-value highlight font-mono">ζ-FFb</span>
+                    </div>
+                    <div class="event-info-row">
+                        <span class="event-label font-sans">頒布予定書籍:</span>
+                        <span class="event-value">上記新刊解説書（紙＋電子版）</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ④ About (メイドさん解説、最後に配置) -->
         <section class="about-section" id="about">
             <div class="maid-avatar-area">
                 <div class="maid-stand-placeholder" style="border: none; background: none; height: auto;">
@@ -74,117 +176,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- キリ番アクセスカウンター -->
-        <div class="counter-panel">
-            <span class="counter-title">ACCESS COUNTER</span>
-            <div class="counter-numbers">
-                <span class="counter-num">9</span>
-                <span class="counter-num">9</span>
-                <span class="counter-num">9</span>
-                <span class="counter-num">9</span>
-                <span class="counter-num">9</span>
-                <span class="counter-num">9</span>
-                <span class="counter-num font-mono neon-num">9</span>
-                <span class="counter-num font-mono neon-num">9</span>
-            </div>
-            <span class="counter-note">※カウンター限界突破につき機能停止中（ウソ）</span>
-        </div>
-
-        <!-- 書籍＆ツール紹介 (Products) -->
-        <section class="products-section" id="products">
-            <h2 class="section-title-cyber">Main Products</h2>
-            <div class="products-grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto 15px auto; width: 100%;">
-                <!-- K2MF-001: Brake Trainer -->
-                <a href="https://uguisupan.github.io/CogniAIMZ/brake-trainer-K2MF-001/index.html" target="_blank" rel="noopener noreferrer" class="product-card active" id="product-k2mf-001" style="min-height: auto;">
-                    <div class="product-content">
-                        <div class="product-meta">SYSTEM MODEL: K2MF-001 | v0.2.5 (LATEST)</div>
-                        <h3 class="product-title">Brake Trainer</h3>
-                        <p class="product-desc font-sans">
-                            ロードセルペダルのリリース挙動にフォーカスし、ターゲットの踏力（%）へミリ秒単位でリリースコントロール（戻し）を行うリズムゲーム型トレーニングツール。GitHub Pagesで稼働中。
-                        </p>
-                        <p class="product-desc font-sans" style="font-size: 0.8rem; color: var(--color-pink); font-weight: bold;">
-                            ※プレイにはGamepad APIに対応したUSBロードセルペダル、または互換コントローラーが必要です。
-                        </p>
-                    </div>
-                    <div class="product-footer">
-                        <span class="product-status font-mono">STATUS: ONLINE ➔</span>
-                        <span class="product-action-btn font-mono">LAUNCH LATEST APP</span>
-                    </div>
-                </a>
-            </div>
-            <div style="display: flex; justify-content: flex-end; margin-bottom: 30px;">
-                <a href="https://uguisupan.github.io/CogniAIMZ/tools/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
-                    VIEW ALL PRODUCTS & ARCHIVES ➔
-                </a>
-            </div>
-        </section>
-
-        <!-- 開発ブログ ＆ イベントスケジュール (非同期でデータ取得) -->
-        <div class="info-columns">
-            <!-- ブログエリア (Devlog & Race) -->
-            <section class="devlog-section" id="devlog">
-                <h2 class="section-title-cyber">Research & Devlog</h2>
-                <div class="blog-list" id="devlog-list" style="margin-bottom: 15px;">
-                    <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
-                </div>
-                <div style="display: flex; justify-content: flex-end; margin-bottom: 30px;">
-                    <a href="https://uguisupan.github.io/CogniAIMZ/devlog/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
-                        VIEW ALL DEVLOGS ➔
-                    </a>
-                </div>
-
-                <h2 class="section-title-cyber" id="race" style="margin-top: 40px;">Motorsports Race Logs</h2>
-                <div class="blog-list" id="race-list" style="margin-bottom: 15px;">
-                    <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
-                </div>
-                <div style="display: flex; justify-content: flex-end;">
-                    <a href="https://uguisupan.github.io/CogniAIMZ/race/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
-                        VIEW ALL RACE LOGS ➔
-                    </a>
-                </div>
-            </section>
-
-            <!-- 出展情報 (Event & Books) -->
-            <section class="event-section" id="event">
-                <h2 class="section-title-cyber">Next Mission</h2>
-                <div class="event-box" style="margin-bottom: 30px;">
-                    <div class="event-details">
-                        <div class="event-header">
-                            <h3 class="event-name">（近い将来の）技術書典 XX</h3>
-                            <span class="event-date font-mono">2026.XX.XX</span>
-                        </div>
-                        <div class="event-info-row">
-                            <span class="event-label font-sans">サークル名:</span>
-                            <span class="event-value">CogniAIMZ (コグニエイムズ)</span>
-                        </div>
-                        <div class="event-info-row">
-                            <span class="event-label font-sans">配置スペース:</span>
-                            <span class="event-value highlight font-mono">ζ-FFb</span>
-                        </div>
-                        <div class="event-info-row">
-                            <span class="event-label font-sans">頒布書籍:</span>
-                            <span class="event-value">アマチュアレーサーにおける…</span>
-                        </div>
-                        <div class="event-info-row" style="margin-top: 15px;">
-                            <span class="event-label font-sans" style="font-size: 0.8rem; line-height: 1.5; color: var(--text-muted);">
-                                ※詳細なブース位置や委託・通販(BOOTH)リンクは決定次第、本エリアおよび公式SNSにて順次お知らせいたします。
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="section-title-cyber">Published Books</h2>
-                <div class="blog-list" id="books-list" style="margin-bottom: 15px;">
-                    <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
-                </div>
-                <div style="display: flex; justify-content: flex-end;">
-                    <a href="https://uguisupan.github.io/CogniAIMZ/books/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
-                        VIEW ALL BOOKS ➔
-                    </a>
-                </div>
-            </section>
-        </div>
 
         <!-- システムステータスバー -->
         <div class="system-status-bar font-mono">
