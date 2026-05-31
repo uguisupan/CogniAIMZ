@@ -148,13 +148,23 @@
             <!-- ブログエリア (Devlog & Race) -->
             <section class="devlog-section" id="devlog">
                 <h2 class="section-title-cyber">Research & Devlog</h2>
-                <div class="blog-list" id="devlog-list" style="margin-bottom: 30px;">
+                <div class="blog-list" id="devlog-list" style="margin-bottom: 15px;">
                     <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
+                </div>
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 30px;">
+                    <a href="https://uguisupan.github.io/CogniAIMZ/devlog/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                        VIEW ALL DEVLOGS ➔
+                    </a>
                 </div>
 
                 <h2 class="section-title-cyber" id="race" style="margin-top: 40px;">Motorsports Race Logs</h2>
-                <div class="blog-list" id="race-list">
+                <div class="blog-list" id="race-list" style="margin-bottom: 15px;">
                     <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
+                </div>
+                <div style="display: flex; justify-content: flex-end;">
+                    <a href="https://uguisupan.github.io/CogniAIMZ/race/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                        VIEW ALL RACE LOGS ➔
+                    </a>
                 </div>
             </section>
 
@@ -188,8 +198,13 @@
                 </div>
 
                 <h2 class="section-title-cyber">Published Books</h2>
-                <div class="blog-list" id="books-list">
+                <div class="blog-list" id="books-list" style="margin-bottom: 15px;">
                     <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
+                </div>
+                <div style="display: flex; justify-content: flex-end;">
+                    <a href="https://uguisupan.github.io/CogniAIMZ/books/" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                        VIEW ALL BOOKS ➔
+                    </a>
                 </div>
             </section>
         </div>
@@ -232,7 +247,7 @@
                     const devlogContainer = document.getElementById('devlog-list');
                     if (devlogContainer) {
                         if (data.devlog && data.devlog.length > 0) {
-                            devlogContainer.innerHTML = data.devlog.map(post => `
+                            devlogContainer.innerHTML = data.devlog.slice(0, 3).map(post => `
                                 <a href="${baseUri}/devlog/${post.id}/" class="blog-item">
                                     <div class="blog-meta">
                                         <span class="blog-date font-mono">${post.pubDate}</span>
@@ -250,7 +265,7 @@
                     const raceContainer = document.getElementById('race-list');
                     if (raceContainer) {
                         if (data.race && data.race.length > 0) {
-                            raceContainer.innerHTML = data.race.map(post => `
+                            raceContainer.innerHTML = data.race.slice(0, 3).map(post => `
                                 <a href="${baseUri}/race/${post.id}/" class="blog-item">
                                     <div class="blog-meta">
                                         <span class="blog-date font-mono">${post.pubDate}</span>
@@ -268,7 +283,7 @@
                     const booksContainer = document.getElementById('books-list');
                     if (booksContainer) {
                         if (data.books && data.books.length > 0) {
-                            booksContainer.innerHTML = data.books.map(post => `
+                            booksContainer.innerHTML = data.books.slice(0, 3).map(post => `
                                 <a href="${baseUri}/books/${post.id}/" class="blog-item">
                                     <div class="blog-meta">
                                         <span class="blog-date font-mono">${post.pubDate}</span>

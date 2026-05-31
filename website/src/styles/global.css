@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
-    /* カラーパレット (白背景系、Key/Leaf等の00年代美少女ゲームメーカー風) */
-    --bg-main: #f5f4f8;           /* 淡いグレーバイオレット */
-    --bg-panel: #ffffff;          /* 純白の不透明パネル */
-    --bg-panel-hover: #faf9fc;    
+    /* カラーパレット (ダークサイバー系、ギーク・開発室風の差別化デザイン) */
+    --bg-main: #07090e;           /* 深い闇色 */
+    --bg-panel: #121826;          /* 暗い半透明パネル用 */
+    --bg-panel-hover: #1b2336;    
     
-    --color-cyan: #0077b3;        /* 視認性の高い濃いめのシアンブルー */
-    --color-pink: #d60062;        /* 視認性の高い濃いめのマゼンタピンク */
+    --color-cyan: #00f3ff;        /* ネオンシアン */
+    --color-pink: #ff0055;        /* ネオンピンク */
     --color-yellow: #ffe600;      /* アクセントイエロー */
-    --color-navy: #190f33;        /* 締め色・メイン文字用の濃紺 */
+    --color-navy: #ffffff;        /* 文字色の白 */
     
-    --text-main: #190f33;         /* メイン文字（濃紺） */
-    --text-muted: #6e648c;        /* サブ文字 */
+    --text-main: #f3f4f6;         /* メイン文字色 */
+    --text-muted: #8e9aaf;        /* サブ文字色 */
     
-    /* フォントスタック：MS Pゴシック/Osaka等のクラシックフォントを最優先に */
+    /* フォントスタック */
     --font-classic: "MS PGothic", "ＭＳ Ｐゴシック", "MS PMincho", "Osaka", "Hiragino Kaku Gothic Pro W3", sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     
-    --transition: 0.1s ease-out;  /* 00年代サイトらしいキビキビした遷移 */
+    --transition: 0.1s ease-out;
 }
 
 /* 共通初期化 */
@@ -39,7 +39,7 @@ body {
     position: relative;
 }
 
-/* 00年代アキバ系サイト特有の「白・薄グレー」の網点＆斜線背景 */
+/* 00年代アキバ系サイト特有の「網点＆斜線背景」のダーク化 */
 body::before {
     content: "";
     position: fixed;
@@ -48,8 +48,8 @@ body::before {
     width: 100vw;
     height: 100vh;
     background-image: 
-        radial-gradient(rgba(0, 119, 179, 0.03) 1px, transparent 1px),
-        linear-gradient(135deg, #e6e4eb 25%, transparent 25%, transparent 50%, #e6e4eb 50%, #e6e4eb 75%, transparent 75%, transparent);
+        radial-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(135deg, #181d2a 25%, transparent 25%, transparent 50%, #181d2a 50%, #181d2a 75%, transparent 75%, transparent);
     background-size: 8px 8px, 12px 12px;
     z-index: -2;
     pointer-events: none;

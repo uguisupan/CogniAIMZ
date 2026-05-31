@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('race');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const formatDate = (date: Date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}.${m}.${d}`;
+};
+---
+
+<Layout title="モータースポーツ参戦記一覧 // Motorsports Race Logs">
+    <div style="margin-bottom: 20px;">
+        <a href={`${import.meta.env.BASE_URL}/`} class="product-action-btn font-mono" style="text-decoration: none; padding: 5px 15px; display: inline-block;">
+            ≪ BACK TO INDEX
+        </a>
+    </div>
+
+    <section class="devlog-section">
+        <h2 class="section-title-cyber">All Motorsports Race Logs ({sortedPosts.length})</h2>
+        <div class="blog-list">
+            {sortedPosts.map((post) => (
+                <a href={`${import.meta.env.BASE_URL}/race/${post.id}/`} class="blog-item">
+                    <div class="blog-meta">
+                        <span class="blog-date font-mono">{formatDate(post.data.pubDate)}</span>
+                        <span class="blog-tag font-mono" style="color: var(--color-cyan);">#Race</span>
+                    </div>
+                    <h3 class="blog-title" style="font-size: 0.95rem;">{post.data.title}</h3>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">
+                        🏎️ {post.data.circuit} // 🚗 {post.data.car} {post.data.bestTime && `// ⏱️ ${post.data.bestTime}`}
+                    </div>
+                </a>
+            ))}
+        </div>
+    </section>
+</Layout>

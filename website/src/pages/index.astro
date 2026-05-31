@@ -42,8 +42,8 @@ const formatDate = (date: Date) => {
             <!-- 開発ログ -->
             <section class="devlog-section" id="devlog">
                 <h2 class="section-title-cyber">Research & Devlog</h2>
-                <div class="blog-list">
-                    {sortedDevlogs.map((post) => (
+                <div class="blog-list" style="margin-bottom: 15px;">
+                    {sortedDevlogs.slice(0, 3).map((post) => (
                         <a href={`${import.meta.env.BASE_URL}/devlog/${post.id}/`} class="blog-item">
                             <div class="blog-meta">
                                 <span class="blog-date font-mono">{formatDate(post.data.pubDate)}</span>
@@ -54,13 +54,20 @@ const formatDate = (date: Date) => {
                     ))}
                     {sortedDevlogs.length === 0 && <p style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">記事がありません。</p>}
                 </div>
+                {sortedDevlogs.length > 3 && (
+                    <div style="display: flex; justify-content: flex-end;">
+                        <a href={`${import.meta.env.BASE_URL}/devlog/`} class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                            VIEW ALL DEVLOGS ➔
+                        </a>
+                    </div>
+                )}
             </section>
 
             <!-- 参戦記 -->
             <section class="devlog-section" id="race">
                 <h2 class="section-title-cyber">Motorsports Race Logs</h2>
-                <div class="blog-list">
-                    {sortedRaces.map((post) => (
+                <div class="blog-list" style="margin-bottom: 15px;">
+                    {sortedRaces.slice(0, 3).map((post) => (
                         <a href={`${import.meta.env.BASE_URL}/race/${post.id}/`} class="blog-item">
                             <div class="blog-meta">
                                 <span class="blog-date font-mono">{formatDate(post.data.pubDate)}</span>
@@ -71,6 +78,13 @@ const formatDate = (date: Date) => {
                     ))}
                     {sortedRaces.length === 0 && <p style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">参戦記録がありません。</p>}
                 </div>
+                {sortedRaces.length > 3 && (
+                    <div style="display: flex; justify-content: flex-end;">
+                        <a href={`${import.meta.env.BASE_URL}/race/`} class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                            VIEW ALL RACE LOGS ➔
+                        </a>
+                    </div>
+                )}
             </section>
         </div>
 
@@ -109,8 +123,8 @@ const formatDate = (date: Date) => {
             <!-- 出版書籍 -->
             <section class="event-section">
                 <h2 class="section-title-cyber">Published Books</h2>
-                <div class="blog-list">
-                    {sortedBooks.map((post) => (
+                <div class="blog-list" style="margin-bottom: 15px;">
+                    {sortedBooks.slice(0, 3).map((post) => (
                         <a href={`${import.meta.env.BASE_URL}/books/${post.id}/`} class="blog-item">
                             <div class="blog-meta">
                                 <span class="blog-date font-mono">{formatDate(post.data.pubDate)}</span>
@@ -121,6 +135,13 @@ const formatDate = (date: Date) => {
                     ))}
                     {sortedBooks.length === 0 && <p style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">本が登録されていません。</p>}
                 </div>
+                {sortedBooks.length > 3 && (
+                    <div style="display: flex; justify-content: flex-end;">
+                        <a href={`${import.meta.env.BASE_URL}/books/`} class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px;">
+                            VIEW ALL BOOKS ➔
+                        </a>
+                    </div>
+                )}
             </section>
         </div>
     </div>

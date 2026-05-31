@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaceSim Brake Trainer - Rhythm Mode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <span class="logo-accent">BRAKE</span>TRAINER <span class="logo-version">（K2MF-001 v0.1.0alpha）</span>
+            </div>
+            <div class="header-right">
+                <div class="status-badge" id="connection-status">デバイス未接続</div>
+            </div>
+        </header>
+
+        <main class="grid-layout">
+            <!-- 左カラム：設定とコントロール -->
+            <div class="left-column">
+                <!-- ゲームプレイコントロール -->
+                <section class="card game-control-card">
+                    <h2><span class="icon">🎮</span>トレーニングコントロール</h2>
+                    <div class="control-row">
+                        <button id="start-btn" class="btn btn-primary btn-large">トレーニング開始</button>
+                        <button id="stop-btn" class="btn btn-secondary btn-large" disabled>停止</button>
+                    </div>
+                    <div class="control-group margin-top">
+                        <label for="pattern-select">練習パターン</label>
+                        <select id="pattern-select">
+                            <option value="basic">ベーシック（単発＆維持の基本）</option>
+                            <option value="trail">トレイルブレーキング（リリース＆完全戻し）</option>
+                            <option value="combined">コンバイン（複合フルコース）</option>
+                        </select>
+                    </div>
+                    <div class="score-board">
+                        <div class="score-item">
+                            <div class="score-label">SCORE</div>
+                            <div id="score-val" class="score-value font-mono">000,000</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">COMBO</div>
+                            <div id="combo-val" class="score-value font-mono">0</div>
+                        </div>
+                    </div>
+                    <div id="judgement-display" class="judgement-text">READY</div>
+                </section>
+
+                <!-- 判定基準ガイド -->
+                <section class="card judge-guide-card">
+                    <h2><span class="icon">🏆</span>判定基準</h2>
+                    <table class="judge-table">
+                        <thead>
+                            <tr>
+                                <th>判定</th>
+                                <th>踏力誤差</th>
+                                <th>タイミング誤差</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="judgement-perfect">PERFECT</td>
+                                <td>±8% 以内</td>
+                                <td>±60ms 以内</td>
+                            </tr>
+                            <tr>
+                                <td class="judgement-great">GREAT</td>
+                                <td>±18% 以内</td>
+                                <td>±100ms 以内</td>
+                            </tr>
+                            <tr>
+                                <td class="judgement-good">GOOD</td>
+                                <td>±30% 以内</td>
+                                <td>±150ms 以内</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- デバイス設定 -->
+                <section class="card settings-card collapsed" id="settings-card">
+                    <div class="card-header-toggle" id="settings-toggle">
+                        <h2><span class="icon">⚙️</span>デバイス設定 <span class="toggle-arrow">▼</span></h2>
+                    </div>
+                    <div class="settings-content" id="settings-content">
+                        <div class="control-group">
+                            <label for="device-select">入力デバイス</label>
+                            <select id="device-select">
+                                <option value="">-- デバイスを選択してください --</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="axis-select">ブレーキ入力軸 (Axis)</label>
+                            <select id="axis-select" disabled>
+                                <option value="">-- 先にデバイスを選択 --</option>
+                            </select>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="invert-axis">
+                            <label for="invert-axis">入力を反転する</label>
+                        </div>
+
+                        <div class="calibration-section">
+                            <h3>キャリブレーション</h3>
+                            <div class="calibration-buttons">
+                                <div class="cal-btn-wrapper">
+                                    <button id="cal-min-btn" class="btn btn-secondary btn-sm">最小値 (離す)</button>
+                                    <span id="cal-min-val" class="cal-val">0.00</span>
+                                </div>
+                                <div class="cal-btn-wrapper">
+                                    <button id="cal-max-btn" class="btn btn-primary btn-sm">最大値 (全力)</button>
+                                    <span id="cal-max-val" class="cal-val">1.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="simulation-section">
+                            <h3>キーボード操作ガイド</h3>
+                            <div class="key-guide">
+                                <div><kbd>Space</kbd> : ブレーキ (長押しで踏み込み、離すと戻る)</div>
+                                <div><kbd>1</kbd> ~ <kbd>5</kbd> : 踏力固定 (20% ~ 100%)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="debug-panel">
+                            <h3>デバッグ情報</h3>
+                            <div class="debug-grid">
+                                <div>Raw / Norm:</div>
+                                <div class="font-mono text-right"><span id="debug-raw-val">0.00</span> / <span id="debug-norm-val">0.00</span></div>
+                                <div>Source:</div>
+                                <div id="debug-source" class="text-right">なし</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 右カラム：音ゲー画面 (Canvas) -->
+            <div class="right-column">
+                <section class="card canvas-card">
+                    <div class="canvas-container">
+                        <canvas id="game-canvas" width="400" height="600"></canvas>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
