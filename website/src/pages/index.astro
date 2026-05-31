@@ -29,8 +29,11 @@ const formatDate = (date: Date) => {
         </h3>
         <p class="font-sans" style="font-size: 0.85rem; color: var(--color-navy); line-height: 1.5;">
             トレーニングツールの実行やサークル公式サイトのトップページは、以下よりアクセスしてください。<br>
-            <a href="https://cogniaimz.chikyu.in/" target="_blank" rel="noopener noreferrer" style="color: var(--color-cyan); font-weight: bold; text-decoration: underline; font-size: 0.95rem; display: inline-block; margin-top: 8px;">
+            <a href="https://cogniaimz.chikyu.in/" target="_blank" rel="noopener noreferrer" style="color: var(--color-cyan); font-weight: bold; text-decoration: underline; font-size: 0.95rem; display: inline-block; margin-top: 8px; margin-right: 20px;">
                 CogniAIMZ 公式サイトへ戻る (cogniaimz.chikyu.in) ➔
+            </a>
+            <a href={`${import.meta.env.BASE_URL}/tools/`} style="color: var(--color-cyan); font-weight: bold; text-decoration: underline; font-size: 0.95rem; display: inline-block; margin-top: 8px;">
+                🎮 ツール保管庫 (最新版・過去の履歴) ➔
             </a>
         </p>
     </div>

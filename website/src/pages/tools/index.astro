@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="ツール保管庫 // Main Products & Archives" hideNav={true}>
+    <div style="margin-bottom: 20px;">
+        <a href={`${import.meta.env.BASE_URL}/`} class="product-action-btn font-mono" style="text-decoration: none; padding: 5px 15px; display: inline-block;">
+            ≪ BACK TO INDEX
+        </a>
+    </div>
+
+    <section class="products-section">
+        <h2 class="section-title-cyber">MAIN PRODUCTS (最新版システム)</h2>
+        <div class="products-grid">
+            <!-- K2MF-001: Brake Trainer -->
+            <div class="product-card" style="min-height: 320px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div class="product-content">
+                    <div class="product-meta">SYSTEM MODEL: K2MF-001 | v0.2.5 (LATEST)</div>
+                    <h3 class="product-title">Brake Trainer</h3>
+                    <p class="product-desc font-sans">
+                        ロードセルペダルのリリース挙動にフォーカスし、ターゲットの踏力（%）へミリ秒単位でリリースコントロール（戻し）を行うリズムゲーム型トレーニングツール。
+                    </p>
+                    <p class="product-desc font-sans" style="font-size: 0.8rem; color: var(--color-pink); font-weight: bold; margin-bottom: 10px;">
+                        ※プレイにはGamepad APIに対応したUSBロードセルペダル等が必要です。
+                    </p>
+
+                    <!-- 過去バージョンアーカイブ -->
+                    <div style="margin-top: 15px; border-top: 1px dashed rgba(0,0,0,0.15); padding-top: 10px;">
+                        <span style="font-size: 0.75rem; font-weight: bold; color: var(--text-muted); display: block; margin-bottom: 5px;">過去バージョンアーカイブ:</span>
+                        <div style="display: flex; gap: 15px; font-family: var(--font-mono); font-size: 0.75rem; font-weight: bold;">
+                            <a href={`${import.meta.env.BASE_URL}/brake-trainer-K2MF-001/v0.2.0/index.html`} target="_blank" rel="noopener noreferrer" style="color: var(--color-cyan); text-decoration: underline;">v0.2.0 (旧判定ver)</a>
+                            <a href={`${import.meta.env.BASE_URL}/brake-trainer-K2MF-001/v0.1.0/index.html`} target="_blank" rel="noopener noreferrer" style="color: var(--color-cyan); text-decoration: underline;">v0.1.0 (プロトタイプ)</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-footer" style="margin-top: 20px;">
+                    <span class="product-status font-mono">STATUS: ONLINE ➔</span>
+                    <a href={`${import.meta.env.BASE_URL}/brake-trainer-K2MF-001/`} target="_blank" rel="noopener noreferrer" class="product-action-btn font-mono" style="text-decoration: none; padding: 4px 12px; display: inline-block;">
+                        LAUNCH LATEST APP (v0.2.5) ➔
+                    </a>
+                </div>
+            </div>
+
+            <!-- K2MF-002: Throttle & Clutch (Locked) -->
+            <div class="product-card locked">
+                <div class="product-content">
+                    <div class="product-meta">SYSTEM MODEL: K2MF-002</div>
+                    <h3 class="product-title">Throttle & Clutch</h3>
+                    <p class="product-desc">
+                        ハーフスロットル維持、ヒール・アンド・トウ時の同調、クラッチのミートポイント再現性を高めるための総合ペダルワークトレーニングモジュール。
+                    </p>
+                </div>
+                <div class="product-footer" style="margin-top: 20px;">
+                    <span class="product-status font-mono">STATUS: DEVELOPMENT</span>
+                </div>
+            </div>
+
+            <!-- K2MF-003: H-Shifter (Locked) -->
+            <div class="product-card locked">
+                <div class="product-content">
+                    <div class="product-meta">SYSTEM MODEL: K2MF-003</div>
+                    <h3 class="product-title">H-Shifter Trainer</h3>
+                    <p class="product-desc">
+                        ドグミッションの噛み合わせタイミングやシンクロ機構のメカニズムを体感し、シフトミスを極限まで減らすためのギアゲート練習デバイスシミュレーター。
+                    </p>
+                </div>
+                <div class="product-footer" style="margin-top: 20px;">
+                    <span class="product-status font-mono">STATUS: CONCEPT</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
