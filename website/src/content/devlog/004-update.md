@@ -1,7 +1,7 @@
 ---
 title: "Webサイト関係の更新"
 pubDate: "2026-05-31"
-tag: "Release"
+tag: "Update"
 description: "Webサイトのレイアウトやプレイスホルダーを、あるべき姿に修正・更新しました"
 ---
 
