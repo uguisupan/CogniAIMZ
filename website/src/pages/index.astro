@@ -2,9 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-// ブログ記事を取得し、公開日の新しい順にソート
-const posts = await getCollection('blog');
-const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+// 各種コンテンツコレクションを取得
+const devlogs = await getCollection('devlog');
+const races = await getCollection('race');
+const books = await getCollection('books');
+
+// 公開日の新しい順にソート
+const sortedDevlogs = devlogs.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sortedRaces = races.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sortedBooks = books.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 // 日付フォーマット (YYYY.MM.DD)
 const formatDate = (date: Date) => {
@@ -22,9 +28,9 @@ const formatDate = (date: Date) => {
             <div class="hero-tag font-mono">DOUJINSHI PROJ: #001</div>
             <h2 class="hero-title-en font-mono">Real-time Measurement & Training Tools</h2>
             <h1 class="hero-title-jp">
-                初中級アマチュアレーサーにおける<br>
-                運転操作再現性向上のための<br>
-                リアルタイム計測型トレーニングツール
+                アマチュアレーサーにおける<br>
+                運転操作向上のための<br>
+                トレーニングツール①　初等・ブレーキ編
             </h1>
             <p class="hero-desc">
                 ロードセル式ペダルによる踏力コントロールをミリ秒単位でデータ化。
@@ -37,20 +43,8 @@ const formatDate = (date: Date) => {
         
         <div class="hero-book-preview">
             <!-- 00年代萌え系解説書風 表紙 -->
-            <div class="book-cover">
-                <div>
-                    <div class="book-title-sub font-mono">CogniAIMZ Technical Report v1.0</div>
-                    <h3 class="book-title-main">初中級アマチュアレーサーにおける運転操作再現性向上のためのリアルタイム計測型トレーニングツール</h3>
-                </div>
-                
-                <div class="book-illustration-placeholder" style="border: none; background: none; height: auto; margin: 15px 0;">
-                    <img src="/book_cover.png" alt="技術書表紙" style="width: 100%; border-radius: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.15); display: block;">
-                </div>
-                
-                <div class="book-meta">
-                    <span>C256 頒布予定</span>
-                    <span>CogniAIMZ Press</span>
-                </div>
+            <div class="book-cover" style="padding: 0; overflow: hidden; display: block;">
+                <img src={`${import.meta.env.BASE_URL}/book_cover.jpg`} alt="技術書表紙" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </div>
         </div>
     </section>
@@ -59,16 +53,16 @@ const formatDate = (date: Date) => {
     <section class="about-section" id="about">
         <div class="maid-avatar-area">
             <div class="maid-stand-placeholder" style="border: none; background: none; height: auto;">
-                <img src="/maid_alice.png" alt="アリス" style="width: 100%; max-height: 320px; border-radius: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.15); object-fit: cover; display: block;">
+                <img src={`${import.meta.env.BASE_URL}/maid_mai.jpg`} alt="マイ" style="width: 100%; max-height: 320px; border-radius: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.15); object-fit: cover; display: block;">
             </div>
-            <div class="maid-name font-mono">アリス - Alice</div>
+            <div class="maid-name font-mono">小国マイ - Mai Koguni</div>
         </div>
         
         <div class="about-dialog-box">
             <div class="dialog-header font-mono">COGNITIVE_SYSTEM_EXPLANATION.txt</div>
             <div class="dialog-text">
                 <p>
-                    「ようこそ、<strong>CogniAIMZ（コグニエイムズ）</strong>へ！私は解説のアリスだよ！」
+                    「ようこそ、<strong>CogniAIMZ（コグニエイムズ）</strong>へ！私は解説のマイだよ！」
                 </p>
                 <p>
                     「モータースポーツにおいて、ブレーキングは単に車を減速させるだけじゃなくて、荷重移動をコントロールして車の向きを変える最も重要なフェーズなんだ。でも、多くの初中級ドライバーは、自分がペダルをどれだけリリースしているか、脳内のイメージと実際の足裏の圧力（踏力）に大きな<span class="pink-highlight">『認知のズレ（Cognitive Gap）』</span>を抱えちゃっているんだよね。」
@@ -150,12 +144,12 @@ const formatDate = (date: Date) => {
 
     <!-- 開発ブログ ＆ イベントスケジュール -->
     <div class="info-columns">
-        <!-- ブログエリア (Devlog) -->
+        <!-- ブログエリア (Devlog & Race) -->
         <section class="devlog-section" id="devlog">
             <h2 class="section-title-cyber">Research & Devlog</h2>
-            <div class="blog-list">
-                {sortedPosts.map((post) => (
-                    <a href={`/devlog/${post.id}/`} class="blog-item">
+            <div class="blog-list" style="margin-bottom: 30px;">
+                {sortedDevlogs.slice(0, 5).map((post) => (
+                    <a href={`${import.meta.env.BASE_URL}/devlog/${post.id}/`} class="blog-item">
                         <div class="blog-meta">
                             <span class="blog-date font-mono">{formatDate(post.data.pubDate)}</span>
                             <span class="blog-tag font-mono">#{post.data.tag}</span>
@@ -164,12 +158,25 @@ const formatDate = (date: Date) => {
                     </a>
                 ))}
             </div>
+
+            <h2 class="section-title-cyber" id="race" style="margin-top: 40px;">Motorsports Race Logs</h2>
+            <div class="blog-list">
+                {sortedRaces.slice(0, 5).map((post) => (
+                    <a href={`${import.meta.env.BASE_URL}/race/${post.id}/`} class="blog-item">
+                        <div class="blog-meta">
+                            <span class="blog-date font-mono">{formatDate(post.data.pubDate)}</span>
+                            <span class="blog-tag font-mono" style="color: var(--color-cyan);">#Race</span>
+                        </div>
+                        <h3 class="blog-title">{post.data.title}</h3>
+                    </a>
+                ))}
+            </div>
         </section>
 
-        <!-- 出展情報 (Event) -->
+        <!-- 出展情報 (Event & Books) -->
         <section class="event-section" id="event">
             <h2 class="section-title-cyber">Next Mission</h2>
-            <div class="event-box">
+            <div class="event-box" style="margin-bottom: 30px;">
                 <div class="event-details">
                     <div class="event-header">
                         <h3 class="event-name">（近い将来の）技術書典 XX</h3>
@@ -185,7 +192,7 @@ const formatDate = (date: Date) => {
                     </div>
                     <div class="event-info-row">
                         <span class="event-label font-sans">頒布書籍:</span>
-                        <span class="event-value">初中級アマチュアレーサーにおける…</span>
+                        <span class="event-value">アマチュアレーサーにおける…</span>
                     </div>
                     <div class="event-info-row" style="margin-top: 15px;">
                         <span class="event-label font-sans" style="font-size: 0.8rem; line-height: 1.5; color: var(--text-muted);">
@@ -193,6 +200,19 @@ const formatDate = (date: Date) => {
                         </span>
                     </div>
                 </div>
+            </div>
+
+            <h2 class="section-title-cyber">Published Books</h2>
+            <div class="blog-list">
+                {sortedBooks.map((post) => (
+                    <a href={`${import.meta.env.BASE_URL}/books/${post.id}/`} class="blog-item">
+                        <div class="blog-meta">
+                            <span class="blog-date font-mono">{formatDate(post.data.pubDate)}</span>
+                            <span class="blog-tag font-mono" style="color: var(--color-pink);">#Book</span>
+                        </div>
+                        <h3 class="blog-title">{post.data.title}</h3>
+                    </a>
+                ))}
             </div>
         </section>
     </div>

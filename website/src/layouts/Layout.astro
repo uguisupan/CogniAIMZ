@@ -23,14 +23,14 @@ const { title, description = "コグニエイムズ(CogniAIMZ)は、人間の足
         <!-- ヘッダー -->
         <header class="site-header" id="header">
             <div class="logo-area">
-                <a href="/" class="logo-main"><span>Cogni</span>AIMZ</a>
+                <a href={`${import.meta.env.BASE_URL}/`} class="logo-main"><span>Cogni</span>AIMZ</a>
                 <div class="logo-ruby">こぐにえいむず // kɔg-ni-eɪmz</div>
             </div>
             <nav class="nav-links">
-                <a href="/#about" class={`nav-link ${activeNav === 'about' ? 'active' : ''}`}>About</a>
-                <a href="/#products" class={`nav-link ${activeNav === 'products' ? 'active' : ''}`}>Products</a>
-                <a href="/#devlog" class={`nav-link ${activeNav === 'devlog' ? 'active' : ''}`}>Devlog</a>
-                <a href="/#event" class={`nav-link ${activeNav === 'event' ? 'active' : ''}`}>Event</a>
+                <a href={`${import.meta.env.BASE_URL}/#about`} class={`nav-link ${activeNav === 'about' ? 'active' : ''}`}>About</a>
+                <a href={`${import.meta.env.BASE_URL}/#products`} class={`nav-link ${activeNav === 'products' ? 'active' : ''}`}>Products</a>
+                <a href={`${import.meta.env.BASE_URL}/#devlog`} class={`nav-link ${activeNav === 'devlog' ? 'active' : ''}`}>Devlog</a>
+                <a href={`${import.meta.env.BASE_URL}/#event`} class={`nav-link ${activeNav === 'event' ? 'active' : ''}`}>Event</a>
             </nav>
         </header>
 

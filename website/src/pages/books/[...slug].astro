@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('books');
+    return posts.map(post => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// 日付フォーマット
+const formatDate = (date: Date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}.${m}.${d}`;
+};
+---
+
+<Layout title={post.data.title} activeNav="books">
+    <article class="product-card" style="min-height: auto; width: 100%; padding: 40px; cursor: default; margin-bottom: 20px;">
+        <header style="margin-bottom: 30px; border-bottom: 2px solid var(--color-navy); padding-bottom: 15px;">
+            <div class="blog-meta" style="margin-bottom: 10px; font-size: 0.85rem;">
+                <span class="blog-date font-mono" style="color: var(--color-cyan); font-weight: bold;">{formatDate(post.data.pubDate)}</span>
+                <span class="blog-tag font-mono" style="color: var(--color-pink); margin-left: 20px; font-weight: bold;">#BookLog</span>
+            </div>
+            <h1 style="font-size: 1.6rem; font-weight: bold; color: var(--color-navy); line-height: 1.4; text-shadow: 1px 1px 0px rgba(0,0,0,0.05); margin-bottom: 20px;">
+                {post.data.title}
+            </h1>
+
+            <!-- 同人誌スペックテーブル -->
+            <div class="book-spec-box" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 15px; margin-top: 15px; font-size: 0.9rem;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; align-items: center;">
+                    <div><strong>📖 出展イベント:</strong> {post.data.event}</div>
+                    {post.data.price !== undefined && <div><strong>💰 頒布価格:</strong> {post.data.price} 円</div>}
+                    {post.data.boothUrl && (
+                        <div>
+                            <strong>🛍️ 通販リンク:</strong> 
+                            <a href={post.data.boothUrl} target="_blank" rel="noopener noreferrer" style="color: var(--color-pink); font-weight: bold; text-decoration: underline; margin-left: 5px;">
+                                BOOTHで見る
+                            </a>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </header>
+
+        <div class="markdown-content">
+            <Content />
+        </div>
+
+        <footer style="margin-top: 40px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 20px; display: flex; justify-content: flex-end;">
+            <a href={`${import.meta.env.BASE_URL}/#event`} class="product-action-btn font-mono" style="text-decoration: none; padding: 5px 15px;">
+                ≪ BACK TO INDEX
+            </a>
+        </footer>
+    </article>
+</Layout>

@@ -3,55 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CogniAIMZ - RaceSim Training Suite</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>サークル公式サイト - CogniAIMZ</title>
+    <meta name="description" content="コグニエイムズ(CogniAIMZ)は、人間の足裏の圧力知覚とブレーキングの再現性向上を目指す同人サークルです。">
+    <!-- ローカルに移植したスタイルシートを読み込む -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="portal-container">
-        <header class="portal-header">
-            <h1 class="portal-logo"><span class="logo-accent">Cogni</span>AIMZ</h1>
-            <p class="portal-tagline">Advanced RaceSim Cognitive & Physical Training Suite</p>
+    <div class="site-container">
+        <!-- ヘッダー -->
+        <header class="site-header" id="header">
+            <div class="logo-area">
+                <a href="./index.html" class="logo-main"><span>Cogni</span>AIMZ</a>
+                <div class="logo-ruby">こぐにえいむず // kɔg-ni-eɪmz</div>
+            </div>
+            <nav class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="https://uguisupan.github.io/CogniAMS/#devlog" class="nav-link">Devlog</a>
+                <a href="https://uguisupan.github.io/CogniAMS/#event" class="nav-link">Event</a>
+            </nav>
         </header>
 
-        <main class="portal-grid">
-            <!-- K2MF-001: Brake Trainer -->
-            <a href="./brake-trainer-K2MF-001/index.html" class="portal-card active-card">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <div class="card-meta">SYSTEM MODEL: K2MF-001 | v0.2.5 2026/05/30</div>
-                    <h2 class="card-title">Brake Trainer</h2>
-                    <p class="card-desc">ロードセルペダルの踏力リリースコントロール（トレイルブレーキング）および完全リリース（0%戻し）をミリ秒単位で磨き上げるリズム型トレーニングモジュール。</p>
-                    <div class="card-status font-mono">SYSTEM ACTIVE ➔</div>
-                </div>
-            </a>
-
-            <!-- K2MF-002: Throttle & Clutch (Coming Soon) -->
-            <div class="portal-card locked-card">
-                <div class="card-content">
-                    <div class="card-meta">SYSTEM MODEL: K2MF-002</div>
-                    <h2 class="card-title">Throttle & Clutch</h2>
-                    <p class="card-desc">アクセル開度コントロール、半クラッチのミートポイント維持、およびシフトダウン時のシンクロナイズドペダルワーク練習用モジュール。</p>
-                    <div class="card-status font-mono">SYSTEM LOCKED (COMING SOON)</div>
+        <!-- メインコンテンツ -->
+        <!-- ヒーローセクション -->
+        <section class="hero-section" id="hero">
+            <div class="hero-info">
+                <div class="hero-tag font-mono">DOUJINSHI PROJ: #001</div>
+                <h2 class="hero-title-en font-mono">Real-time Measurement & Training Tools</h2>
+                <h1 class="hero-title-jp">
+                    アマチュアレーサーにおける<br>
+                    運転操作向上のための<br>
+                    トレーニングツール①　初等・ブレーキ編
+                </h1>
+                <p class="hero-desc">
+                    ロードセル式ペダルによる踏力コントロールをミリ秒単位でデータ化。
+                    脳と足裏の「知覚ギャップ」を埋め、常に狙った通りのトレイルブレーキングを再現するための理論とツールの解説書。
+                </p>
+                <div style="margin-top: 10px;">
+                    <a href="#products" class="product-action-btn font-mono" style="text-decoration: none; display: inline-block;">SYSTEM OVERVIEW ➔</a>
                 </div>
             </div>
-
-            <!-- K2MF-003: Shifter Trainer (Coming Soon) -->
-            <div class="portal-card locked-card">
-                <div class="card-content">
-                    <div class="card-meta">SYSTEM MODEL: K2MF-003</div>
-                    <h2 class="card-title">H-Shifter Trainer</h2>
-                    <p class="card-desc">Hパターンマニュアルシフトの操作タイミング、正確なゲート選択、およびブリッピング同期を身につけるためのギア選択シミュレーター。</p>
-                    <div class="card-status font-mono">SYSTEM LOCKED (COMING SOON)</div>
+            <div class="hero-book-preview">
+                <!-- 00年代萌え系解説書風 表紙 -->
+                <div class="book-cover" style="padding: 0; overflow: hidden; display: block;">
+                    <img src="./book_cover.jpg" alt="技術書表紙" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                 </div>
             </div>
-        </main>
+        </section>
 
-        <footer class="portal-footer font-mono">
-            <p>&copy; 2026 CogniAIMZ Project. Developed for Advanced Race Simulators.</p>
+        <!-- メイドさん解説セクション (About) -->
+        <section class="about-section" id="about">
+            <div class="maid-avatar-area">
+                <div class="maid-stand-placeholder" style="border: none; background: none; height: auto;">
+                    <img src="./maid_mai.jpg" alt="マイ" style="width: 100%; max-height: 320px; border-radius: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.15); object-fit: cover; display: block;">
+                </div>
+                <div class="maid-name font-mono">小国マイ - Mai Koguni</div>
+            </div>
+            <div class="about-dialog-box">
+                <div class="dialog-header font-mono">COGNITIVE_SYSTEM_EXPLANATION.txt</div>
+                <div class="dialog-text">
+                    <p>
+                        「ようこそ、<strong>CogniAIMZ（コグニエイムズ）</strong>へ！私は解説のマイだよ！」
+                    </p>
+                    <p>
+                        「モータースポーツにおいて、ブレーキングは単に車を減速させるだけじゃなくて、荷重移動をコントロールして車の向きを変える最も重要なフェーズんだ。でも、多くの初中級ドライバーは、自分がペダルをどれだけリリースしているか、脳内のイメージと実際の足裏の圧力（踏力）に大きな<span class="pink-highlight">『認知のズレ（Cognitive Gap）』</span>を抱えちゃっているんだよね。」
+                    </p>
+                    <p>
+                        「私たちのサークルでは、ミリ秒単位でロードセルペダルの挙動をキャプチャして、人間の感覚のフィードバックループを強化するツールと理論を研究しているよ。名前はシステム開発研究所のように堅苦しいけど、中身はレースゲームとメカが大好きなオタク魂でいっぱい！一緒に『狙った通りの1ミリ秒』を追求してみない？」
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- キリ番アクセスカウンター -->
+        <div class="counter-panel">
+            <span class="counter-title">ACCESS COUNTER</span>
+            <div class="counter-numbers">
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num">9</span>
+                <span class="counter-num font-mono neon-num">9</span>
+                <span class="counter-num font-mono neon-num">9</span>
+            </div>
+            <span class="counter-note">※カウンター限界突破につき機能停止中（ウソ）</span>
+        </div>
+
+        <!-- 書籍＆ツール紹介 (Products) -->
+        <section class="products-section" id="products">
+            <h2 class="section-title-cyber">Project Products</h2>
+            <div class="products-grid">
+                <!-- K2MF-001: Brake Trainer -->
+                <a href="https://uguisupan.github.io/CogniAMS/brake-trainer-K2MF-001/index.html" target="_blank" rel="noopener noreferrer" class="product-card active" id="product-k2mf-001">
+                    <div class="product-content">
+                        <div class="product-meta">SYSTEM MODEL: K2MF-001 | v0.1.0alpha 2026/05/29</div>
+                        <h3 class="product-title">Brake Trainer</h3>
+                        <p class="product-desc font-sans">
+                            ロードセルペダルのリリース挙動にフォーカスし、ターゲットの踏力（%）へミリ秒単位でリリースコントロール（戻し）を行うリズムゲーム型トレーニングツール。GitHub Pagesで稼働中。
+                        </p>
+                        <p class="product-desc font-sans" style="font-size: 0.8rem; color: var(--color-pink); font-weight: bold;">
+                            ※プレイにはGamepad APIに対応したUSBロードセルペダル、または互換コントローラーが必要です。
+                        </p>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-status font-mono">STATUS: ONLINE ➔</span>
+                        <span class="product-action-btn font-mono">LAUNCH APP</span>
+                    </div>
+                </a>
+
+                <!-- K2MF-002: Throttle & Clutch (Locked) -->
+                <div class="product-card locked" id="product-k2mf-002">
+                    <div class="product-content">
+                        <div class="product-meta">SYSTEM MODEL: K2MF-002</div>
+                        <h3 class="product-title">Throttle & Clutch</h3>
+                        <p class="product-desc">
+                            ハーフスロットル維持、ヒール・アンド・トウ時の同調、クラッチのミートポイント再現性を高めるための総合ペダルワークトレーニングモジュール。
+                        </p>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-status font-mono">STATUS: DEVELOPMENT</span>
+                    </div>
+                </div>
+
+                <!-- K2MF-003: H-Shifter (Locked) -->
+                <div class="product-card locked" id="product-k2mf-003">
+                    <div class="product-content">
+                        <div class="product-meta">SYSTEM MODEL: K2MF-003</div>
+                        <h3 class="product-title">H-Shifter Trainer</h3>
+                        <p class="product-desc">
+                            ドグミッションの噛み合わせタイミングやシンクロ機構のメカニズムを体感し、シフトミスを極限まで減らすためのギアゲート練習デバイスシミュレーター。
+                        </p>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-status font-mono">STATUS: CONCEPT</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 開発ブログ ＆ イベントスケジュール (非同期でデータ取得) -->
+        <div class="info-columns">
+            <!-- ブログエリア (Devlog & Race) -->
+            <section class="devlog-section" id="devlog">
+                <h2 class="section-title-cyber">Research & Devlog</h2>
+                <div class="blog-list" id="devlog-list" style="margin-bottom: 30px;">
+                    <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
+                </div>
+
+                <h2 class="section-title-cyber" id="race" style="margin-top: 40px;">Motorsports Race Logs</h2>
+                <div class="blog-list" id="race-list">
+                    <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
+                </div>
+            </section>
+
+            <!-- 出展情報 (Event & Books) -->
+            <section class="event-section" id="event">
+                <h2 class="section-title-cyber">Next Mission</h2>
+                <div class="event-box" style="margin-bottom: 30px;">
+                    <div class="event-details">
+                        <div class="event-header">
+                            <h3 class="event-name">（近い将来の）技術書典 XX</h3>
+                            <span class="event-date font-mono">2026.XX.XX</span>
+                        </div>
+                        <div class="event-info-row">
+                            <span class="event-label font-sans">サークル名:</span>
+                            <span class="event-value">CogniAIMZ (コグニエイムズ)</span>
+                        </div>
+                        <div class="event-info-row">
+                            <span class="event-label font-sans">配置スペース:</span>
+                            <span class="event-value highlight font-mono">ζ-FFb</span>
+                        </div>
+                        <div class="event-info-row">
+                            <span class="event-label font-sans">頒布書籍:</span>
+                            <span class="event-value">アマチュアレーサーにおける…</span>
+                        </div>
+                        <div class="event-info-row" style="margin-top: 15px;">
+                            <span class="event-label font-sans" style="font-size: 0.8rem; line-height: 1.5; color: var(--text-muted);">
+                                ※詳細なブース位置や委託・通販(BOOTH)リンクは決定次第、本エリアおよび公式SNSにて順次お知らせいたします。
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title-cyber">Published Books</h2>
+                <div class="blog-list" id="books-list">
+                    <p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">接続中...</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- システムステータスバー -->
+        <div class="system-status-bar font-mono">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>SYSTEM STATUS: ACTIVE [ v1.0.0-beta ]</span>
+            </div>
+            <div class="system-time">
+                SYS_LOC: CL-90 // CORE_TEMP: NORMAL
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <footer class="site-footer font-mono">
+            <p>&copy; 2026 CogniAIMZ Project. Developed for Advanced Sim-Racers.</p>
+            <p style="margin-top: 8px; font-size: 0.7rem; color: var(--text-muted);">
+                Built with retro-cyber aesthetic. Repo hosted on <a href="https://github.com/uguisupan/CogniAIMZ" target="_blank" rel="noopener noreferrer">GitHub</a>.
+            </p>
         </footer>
     </div>
+
+    <!-- 非同期で GitHub Pages から最新記事を取得するスクリプト -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const feedUrl = 'https://uguisupan.github.io/CogniAMS/feed.json';
+            const baseUri = 'https://uguisupan.github.io/CogniAMS';
+
+            fetch(feedUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 1. 開発ログ (devlog) の描画
+                    const devlogContainer = document.getElementById('devlog-list');
+                    if (devlogContainer) {
+                        if (data.devlog && data.devlog.length > 0) {
+                            devlogContainer.innerHTML = data.devlog.map(post => `
+                                <a href="${baseUri}/devlog/${post.id}/" class="blog-item">
+                                    <div class="blog-meta">
+                                        <span class="blog-date font-mono">${post.pubDate}</span>
+                                        <span class="blog-tag font-mono">#${post.tag}</span>
+                                    </div>
+                                    <h3 class="blog-title">${post.title}</h3>
+                                </a>
+                            `).join('');
+                        } else {
+                            devlogContainer.innerHTML = '<p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">記事が見つかりません。</p>';
+                        }
+                    }
+
+                    // 2. 参戦記 (race) の描画
+                    const raceContainer = document.getElementById('race-list');
+                    if (raceContainer) {
+                        if (data.race && data.race.length > 0) {
+                            raceContainer.innerHTML = data.race.map(post => `
+                                <a href="${baseUri}/race/${post.id}/" class="blog-item">
+                                    <div class="blog-meta">
+                                        <span class="blog-date font-mono">${post.pubDate}</span>
+                                        <span class="blog-tag font-mono" style="color: var(--color-cyan);">#Race</span>
+                                    </div>
+                                    <h3 class="blog-title">${post.title}</h3>
+                                </a>
+                            `).join('');
+                        } else {
+                            raceContainer.innerHTML = '<p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">参戦記録がありません。</p>';
+                        }
+                    }
+
+                    // 3. 出版書籍 (books) の描画
+                    const booksContainer = document.getElementById('books-list');
+                    if (booksContainer) {
+                        if (data.books && data.books.length > 0) {
+                            booksContainer.innerHTML = data.books.map(post => `
+                                <a href="${baseUri}/books/${post.id}/" class="blog-item">
+                                    <div class="blog-meta">
+                                        <span class="blog-date font-mono">${post.pubDate}</span>
+                                        <span class="blog-tag font-mono" style="color: var(--color-pink);">#Book</span>
+                                    </div>
+                                    <h3 class="blog-title">${post.title}</h3>
+                                </a>
+                            `).join('');
+                        } else {
+                            booksContainer.innerHTML = '<p class="font-sans" style="color: var(--text-muted); font-size: 0.8rem; padding: 10px;">本が登録されていません。</p>';
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.error('Error fetching feed:', err);
+                    const errorHtml = '<p class="font-sans" style="color: var(--color-pink); font-size: 0.8rem; padding: 10px;">データの取得に失敗しました。最新情報は直接 <a href="https://uguisupan.github.io/CogniAMS/" target="_blank" rel="noopener noreferrer" style="color: var(--color-cyan); text-decoration: underline;">GitHub Pages</a> をご確認ください。</p>';
+                    ['devlog-list', 'race-list', 'books-list'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.innerHTML = errorHtml;
+                    });
+                });
+        });
+    </script>
 </body>
 </html>
