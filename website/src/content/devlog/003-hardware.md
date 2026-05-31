@@ -1,6 +1,6 @@
 ---
 title: "Brake Trainer v0.2.5 公開！"
-pubDate: "2026-05-30"
+pubDate: "2026-05-30 15:30"
 tag: "Release"
 description: "リズムゲーム型ブレーキトレーニングツール v0.2.5 のWeb版を公開しました。"
 ---
