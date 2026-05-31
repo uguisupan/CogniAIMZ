@@ -407,21 +407,21 @@ body::after {
 /* プロダクトグリッド */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 15px;
 }
 
 /* カード */
 .product-card {
     background: var(--bg-panel);
     border: 1px solid var(--color-navy);
-    padding: 20px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 280px;
+    min-height: 240px;
     position: relative;
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
     transition: var(--transition);
 }
 
@@ -513,16 +513,54 @@ body::after {
 
 /* ロックカード */
 .product-card.locked {
-    opacity: 0.5;
-    border-color: var(--text-muted);
+    opacity: 0.6;
+    border: 1px dashed var(--text-muted);
+    background-color: rgba(0, 0, 0, 0.02);
+    cursor: not-allowed;
+    position: relative;
+    overflow: hidden;
 }
 
 .product-card.locked::before {
     background: var(--text-muted);
 }
 
+.product-card.locked::after {
+    content: "DEVELOPMENT";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--color-pink);
+    border: 1px solid var(--color-pink);
+    padding: 2px 6px;
+    background: var(--bg-panel);
+    letter-spacing: 1px;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.product-card.locked .product-title {
+    color: var(--text-muted);
+}
+
+.product-card.locked .product-meta {
+    color: var(--text-muted);
+}
+
 .product-card.locked .product-status {
     color: var(--text-muted);
+}
+
+.product-card.locked .product-action-btn {
+    border-color: var(--text-muted);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, 0.03);
 }
 
 /* 情報カラム */
@@ -791,6 +829,12 @@ body::after {
     .info-columns {
         grid-template-columns: 1fr;
         gap: 30px;
+    }
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    .maid-avatar-area {
+        max-width: 150px;
     }
     .nav-links {
         display: none;
