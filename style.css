@@ -280,8 +280,8 @@ body::after {
 /* Aboutセクション */
 .about-section {
     display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 10px;
+    grid-template-columns: 180px 1fr;
+    gap: 15px;
     align-items: stretch;
 }
 
@@ -291,9 +291,9 @@ body::after {
     align-items: center;
     border: 1px solid var(--color-navy);
     background: var(--bg-panel);
-    padding: 6px;
-    max-width: 100px;
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    max-width: 180px;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
 }
 
 .maid-stand-placeholder {
@@ -307,20 +307,20 @@ body::after {
 
 .maid-stand-placeholder img {
     width: 100%;
-    max-height: 130px;
+    max-height: 240px;
     border-radius: 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
     object-fit: contain;
     display: block;
 }
 
 .maid-name {
-    margin-top: 4px;
+    margin-top: 6px;
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: #ffffff;
     background: var(--color-pink);
-    padding: 1px 3px;
+    padding: 2px 5px;
     font-weight: bold;
     width: 100%;
     text-align: center;
@@ -331,12 +331,12 @@ body::after {
 .about-dialog-box {
     background: var(--bg-panel);
     border: 1px solid var(--color-navy);
-    padding: 10px 15px;
+    padding: 15px 20px;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+    gap: 8px;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
 }
 
 .about-dialog-box::before {
@@ -361,13 +361,13 @@ body::after {
 }
 
 .dialog-text {
-    font-size: 0.78rem;
-    line-height: 1.45;
+    font-size: 0.8rem;
+    line-height: 1.5;
     color: var(--text-main);
 }
 
 .dialog-text p {
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .dialog-text p:last-child {
