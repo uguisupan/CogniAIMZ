@@ -22,10 +22,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install, build, and upload Astro site
-        uses: withastro/action@v3
+      # 明示的に Node.js 22 をセットアップ（package.json のエンジン制限をクリアするため）
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: website # Astroプロジェクトがあるサブディレクトリを指定
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: website/package-lock.json
+
+      # website ディレクトリで依存関係をインストール
+      - name: Install dependencies
+        run: npm ci
+        working-directory: website
+
+      # website ディレクトリでビルドを実行
+      - name: Build Astro site
+        run: npm run build
+        working-directory: website
+
+      # ビルドされた dist ディレクトリをアップロード
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: website/dist
 
   deploy:
     needs: build
